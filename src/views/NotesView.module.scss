@@ -53,6 +53,7 @@
   padding: 9px 11px;
   cursor: pointer;
   font-family: inherit;
+  color: var(--c-ink);
 }
 
 .listItemActive {
@@ -64,6 +65,7 @@
   font-size: 13px;
   font-weight: 500;
   margin-bottom: 3px;
+  color: var(--c-card-title);
 }
 
 .listMeta {

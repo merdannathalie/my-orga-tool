@@ -63,3 +63,10 @@
   flex-shrink: 0;
   text-align: right;
 }
+
+// Kartentitel in den Listen (Projekte, Notizen) — bewusst global statt CSS-Modul,
+// damit HMR-Aussetzer beim Modul-Rehashing nicht dazwischenfunken.
+.aorg-card-title {
+  color: var(--c-card-title);
+}
+

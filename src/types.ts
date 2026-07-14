@@ -16,8 +16,6 @@ export type ResourceCategory = "Richtlinie" | "Testtool" | "Vorlage" | "Sonstige
 
 export type Theme = "dark" | "light";
 
-export type SyncStatus = "loading" | "saved" | "saving" | "error";
-
 export type Project = {
   id: number;
   name: string;

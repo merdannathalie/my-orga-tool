@@ -1,6 +1,8 @@
 @use "../styles/mixins" as *;
 
-.h1 { @include page-h1; }
+.h1 {
+  @include page-h1;
+}
 
 .newProjectBtn {
   display: flex;
@@ -32,6 +34,7 @@
   padding: 9px 11px;
   cursor: pointer;
   font-family: inherit;
+  color: var(--c-ink);
 }
 
 .listItemActive {
@@ -43,6 +46,7 @@
   font-size: 13px;
   font-weight: 500;
   margin-bottom: 3px;
+  color: var(--c-card-title);
 }
 
 .listItemDeadline {
@@ -171,7 +175,9 @@
   color: var(--c-fail);
 }
 
-.btnComplete { @include btn-ghost-focus; }
+.btnComplete {
+  @include btn-ghost-focus;
+}
 
 .btnDelete {
   @include btn-ghost-danger;
@@ -180,6 +186,10 @@
   gap: 6px;
 }
 
-.btnConfirmDelete { @include btn-danger-primary; }
+.btnConfirmDelete {
+  @include btn-danger-primary;
+}
 
-.btnCancel { @include btn-ghost; }
+.btnCancel {
+  @include btn-ghost;
+}

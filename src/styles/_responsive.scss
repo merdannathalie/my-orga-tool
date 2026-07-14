@@ -8,26 +8,10 @@
     min-height: 100vh;
   }
 
+  // Desktop-Sidebar auf Mobile komplett ausblenden — Navigation läuft dort über
+  // die MobileNav-Komponente (Burger-Menü).
   .aorg-sidebar {
-    width: 100% !important;
-    height: auto !important;
-    padding: 12px !important;
-  }
-
-  .aorg-nav-list {
-    flex-direction: row;
-    overflow-x: auto;
-    gap: 6px;
-    -webkit-overflow-scrolling: touch;
-  }
-
-  .aorg-nav-btn {
-    width: auto;
-    white-space: nowrap;
-
-    span {
-      display: none;
-    }
+    display: none !important;
   }
 
   .aorg-main {

@@ -9,6 +9,7 @@ type Props = {
 
 export const MindfulnessPanel = ({ gratitude, setGratitude, dayNotes, setDayNotes }: Props) => (
   <div className={styles.panel}>
+    <h2 className={styles.title}>Check-In</h2>
     <div className={`${styles.grid} aorg-mindful-grid`}>
       <div>
         <div className={styles.gratitudeGroup}>

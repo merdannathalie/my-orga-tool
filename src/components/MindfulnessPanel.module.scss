@@ -5,6 +5,11 @@
   margin-bottom: 28px;
 }
 
+.title {
+  @include section-h2;
+  margin-bottom: 10px;
+}
+
 .grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -13,7 +18,7 @@
 
 .heading {
   font-size: 15px;
-  font-weight: 600;
+  font-weight: 400;
   color: var(--c-ink);
   margin-bottom: 6px;
 }

@@ -87,7 +87,7 @@ export const NotesView = ({
                   onClick={() => setActiveNote(n.id)}
                   className={cx(styles.listItem, active && styles.listItemActive)}
                 >
-                  <div className={styles.listTitle}>{n.title}</div>
+                  <div className={cx(styles.listTitle, "aorg-card-title")}>{n.title}</div>
                   <div className={styles.listMeta}>
                     <span>{proj?.name} · {n.date}</span>
                     <CompletedProjectPill project={proj} />

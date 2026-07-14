@@ -70,7 +70,7 @@ export const ProjectsView = ({ projects, setProjects, activeProject, setActivePr
                   onClick={() => setActiveProject(p.id)}
                   className={cx(styles.listItem, active && styles.listItemActive)}
                 >
-                  <div className={styles.listItemName}>{p.name}</div>
+                  <div className={cx(styles.listItemName, "aorg-card-title")}>{p.name}</div>
                   {p.deadline && <div className={styles.listItemDeadline}>{p.deadline}</div>}
                 </button>
               );

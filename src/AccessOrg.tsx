@@ -4,6 +4,7 @@ import { doc, getDoc, setDoc, serverTimestamp } from "firebase/firestore";
 import { db } from "./firebase";
 
 import { ThemeToggle } from "./components/ThemeToggle";
+import { MobileNav } from "./components/MobileNav";
 import { DashboardView } from "./views/DashboardView";
 import { ProjectsView } from "./views/ProjectsView";
 import { NotesView } from "./views/NotesView";
@@ -21,7 +22,7 @@ import {
 import { makeAudit } from "./utils/audit";
 import { cx } from "./utils/cx";
 import type {
-  AuditItem, LearningItem, Meeting, Note, Project, Resource, SyncStatus, Task, Theme,
+  AuditItem, LearningItem, Meeting, Note, Project, Resource, Task, Theme,
 } from "./types";
 import styles from "./AccessOrg.module.scss";
 
@@ -49,7 +50,6 @@ export const AccessOrg = ({ uid, onSignOut }: Props) => {
   const [theme, setTheme] = useState<Theme>("dark");
 
   const [hydrated, setHydrated] = useState(false);
-  const [syncStatus, setSyncStatus] = useState<SyncStatus>("loading");
 
   useEffect(() => {
     let cancelled = false;
@@ -70,10 +70,8 @@ export const AccessOrg = ({ uid, onSignOut }: Props) => {
           if (d.meetings) setMeetings(d.meetings);
           if (d.theme) setTheme(d.theme);
         }
-        if (!cancelled) setSyncStatus("saved");
       } catch (err) {
         console.error("Firestore-Laden fehlgeschlagen:", err);
-        if (!cancelled) setSyncStatus("error");
       } finally {
         if (!cancelled) setHydrated(true);
       }
@@ -83,7 +81,6 @@ export const AccessOrg = ({ uid, onSignOut }: Props) => {
 
   useEffect(() => {
     if (!hydrated) return;
-    setSyncStatus("saving");
     const t = setTimeout(async () => {
       try {
         const ref = doc(db, "users", uid, "app", "state");
@@ -92,10 +89,8 @@ export const AccessOrg = ({ uid, onSignOut }: Props) => {
           gratitude, dayNotes, meetings, theme,
           updatedAt: serverTimestamp(),
         });
-        setSyncStatus("saved");
       } catch (err) {
         console.error("Firestore-Speichern fehlgeschlagen:", err);
-        setSyncStatus("error");
       }
     }, 800);
     return () => clearTimeout(t);
@@ -124,6 +119,14 @@ export const AccessOrg = ({ uid, onSignOut }: Props) => {
 
   return (
     <div data-theme={theme} className={cx("aorg-shell", styles.shell)}>
+      <MobileNav
+        tab={tab}
+        setTab={setTab}
+        theme={theme}
+        setTheme={setTheme}
+        onSignOut={onSignOut}
+      />
+
       <div className={cx("aorg-sidebar", styles.sidebar)}>
         <nav className={cx("aorg-nav-list", styles.nav)}>
           {NAV.map(({ key, label, icon: Icon }) => {
@@ -151,11 +154,6 @@ export const AccessOrg = ({ uid, onSignOut }: Props) => {
           >
             <LogOut size={16} />
           </button>
-        </div>
-        <div className={styles.syncStatus}>
-          {syncStatus === "saving" && "Speichert …"}
-          {syncStatus === "saved" && "Gespeichert"}
-          {syncStatus === "error" && "Speichern fehlgeschlagen"}
         </div>
       </div>
 

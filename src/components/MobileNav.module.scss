@@ -1,0 +1,104 @@
+@use "../styles/mixins" as *;
+
+// Standardmäßig unsichtbar. Zeigt sich erst ab Mobile-Breakpoint.
+.mobileNav {
+  display: none;
+}
+
+@media (max-width: 720px) {
+  .mobileNav {
+    display: block;
+    background: linear-gradient(165deg, #5a3468 0%, #2e2438 65%);
+    color: #c9c2d3;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+  }
+}
+
+.topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 14px;
+  gap: 12px;
+}
+
+.burger {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  border: none;
+  background: transparent;
+  color: #ffffff;
+  cursor: pointer;
+  border-radius: 6px;
+  font-family: inherit;
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.08);
+  }
+}
+
+.drawer {
+  padding: 4px 8px 12px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.nav {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  margin-bottom: 8px;
+}
+
+.navBtn {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  text-align: left;
+  padding: 10px 12px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+  background: transparent;
+  color: #c9c2d3;
+  font-family: inherit;
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.05);
+  }
+}
+
+.navBtnActive {
+  background: rgba(212, 138, 208, 0.3);
+  color: #ffffff;
+}
+
+.signOut {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  text-align: left;
+  padding: 10px 12px;
+  margin-top: 4px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+  background: transparent;
+  color: #c9c2d3;
+  font-family: inherit;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 0;
+  padding-top: 12px;
+
+  &:hover {
+    color: #ffffff;
+  }
+}
+
