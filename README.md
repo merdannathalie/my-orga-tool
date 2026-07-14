@@ -1,99 +1,97 @@
-# Accessible/Org – Firebase-Setup
+# Accessible/Org
 
-Dieses Projekt speichert alle deine Daten (Projekte, Aufgaben, Notizen, Audit-Ergebnisse,
-Ressourcen, Weiterbildung, Meetings, Home-Panel) in **Firestore** und wird über
-**Firebase Hosting** ausgeliefert. Zugriff gibt es nur nach Login mit deiner
-E-Mail/Passwort-Kombination (Firebase Authentication) – nicht mehr über ein einfaches
-Passwortfeld, weil eine reine Client-Passwortabfrage die Firestore-Daten nicht wirklich
-schützen würde (die Firebase-Konfiguration landet ohnehin im öffentlichen JS-Bundle;
-der eigentliche Schutz kommt über die Security Rules + echten Login).
+Ein persönliches Organisations-Tool für Accessibility-Consulting: Projekte,
+WCAG-2.2-Audit-Tracker, Aufgaben, Notizen, Meeting-Protokolle, Ressourcen und
+Weiterbildung — alles auf einer Oberfläche, mit Light/Dark-Mode und
+Firestore-Sync.
 
-## 1. Firebase-Projekt anlegen
+## Features
 
-1. Auf https://console.firebase.google.com auf **"Projekt hinzufügen"** klicken.
-2. Namen vergeben (z. B. `accessible-org`), Google Analytics kannst du deaktivieren.
+- **Home-Dashboard** — Begrüßung, Dankbarkeits-/Tagesnotizen, Meeting-Kalender
+  (3 Tage) und To-do-Board.
+- **Projekte** — pro Mandat mit Beschreibung, Deadline und Abschluss-/
+  Löschworkflow.
+- **Audit-Tracker** — vollständiger WCAG-2.2-A/AA-Kriterienkatalog pro Projekt,
+  gegliedert nach den 4 Prinzipien, mit Status, kritischer Markierung, Notiz
+  und Beispielcode je Kriterium.
+- **Aufgaben** — Kanban-Board auf der Startseite plus sortierbare Listenansicht
+  (nach Priorität oder Deadline).
+- **Notizen & Meeting-Protokolle** — pro Notiz-Typ (Kunden-Call, Intern,
+  Kick-off, Review), mit direkter „Aufgabe aus dieser Notiz erstellen"-Aktion.
+- **Ressourcen** & **Weiterbildung** — kuratierte Linksammlung bzw. Kanban für
+  Lernmaterial.
+- **Firestore-Sync** — kompletter App-Zustand wird debounced automatisch in
+  `users/{uid}/app/state` gespeichert; Sync-Status ist in der Sidebar sichtbar.
 
-## 2. Firestore aktivieren
+## Tech-Stack
 
-1. Im Projekt links auf **Build → Firestore Database**.
-2. **"Datenbank erstellen"**, Modus **"Produktionsmodus"** wählen (die Regeln in
-   `firestore.rules` übernehmen die Absicherung).
-3. Region wählen (z. B. `eur3 (europe-west)`).
+- **React 18** + **TypeScript** (strict)
+- **Vite** als Build-Tool
+- **SCSS Modules** (per-Komponente `.module.scss`) + globale Theme-CSS-Variablen
+- **Firebase** — Authentication (E-Mail/Passwort) + Firestore + Hosting
+- **Lucide** für Icons, **Atkinson Hyperlegible** als Schrift
 
-## 3. Authentication aktivieren
+## Projektstruktur
 
-1. Links auf **Build → Authentication → "Los geht's"**.
-2. Anbieter **"E-Mail/Passwort"** aktivieren.
-3. Unter dem Tab **"Nutzer"** einen einzelnen Nutzer für dich selbst anlegen
-   (deine E-Mail + ein Passwort deiner Wahl). Das ist der einzige Account, der
-   sich einloggen kann.
-
-## 4. Web-App registrieren & Config holen
-
-1. Projektübersicht → Zahnrad-Icon → **Projekteinstellungen**.
-2. Unter "Meine Apps" auf das **Web-Icon (`</>`)** klicken, App registrieren
-   (Hosting-Häkchen kannst du leer lassen, machen wir gleich per CLI).
-3. Die angezeigten `firebaseConfig`-Werte kopieren und in `src/firebase.js`
-   einsetzen (die Platzhalter `DEIN_...` ersetzen).
-
-## 5. Firebase CLI installieren & einloggen
-
-```bash
-npm install -g firebase-tools
-firebase login
+```
+src/
+├── App.tsx              # Auth-Wrapper
+├── AccessOrg.tsx        # Shell + Sidebar + Tab-Router
+├── main.tsx, firebase.ts, types.ts
+├── styles/              # index.scss + Theme-Variablen, Layout, Mixins
+├── constants/           # Farb-Tokens, Nav, WCAG-Katalog, Seed-Daten
+├── utils/               # Dates, Audit-Helper, Sortierer, cx-Helper
+├── components/          # Wiederverwendbare Komponenten (Modals, Panels,
+│                        #   Badges) — je .tsx + .module.scss
+└── views/               # Tab-Views (Dashboard, Projects, Notes, Audit, …)
+                         #   je .tsx + .module.scss
 ```
 
-## 6. Projekt lokal einrichten
+## Lokal starten
 
 ```bash
 npm install
-```
-
-In `.firebaserc` die `DEIN_FIREBASE_PROJEKT_ID` durch deine tatsächliche
-Projekt-ID ersetzen (steht in den Projekteinstellungen, z. B. `accessible-org-a1b2c`).
-
-## 7. Firestore-Regeln deployen
-
-```bash
-firebase deploy --only firestore:rules
-```
-
-## 8. Lokal testen
-
-```bash
 npm run dev
 ```
 
-Öffnet die App unter `http://localhost:5173`. Mit deinem in Schritt 3 angelegten
-Account einloggen – die Demo-Daten werden beim ersten Start einmalig geladen und
-danach automatisch (mit kurzer Verzögerung) nach Firestore gespeichert. Unten
-links in der Sidebar zeigt ein kleiner Text den Speicherstatus
-("Speichert …" / "Gespeichert").
+Öffnet die App unter http://localhost:5173. Für den ersten Login: einen Nutzer
+im Firebase-Auth-Panel anlegen (siehe unten).
 
-## 9. Bauen & deployen
+## Firebase-Setup (einmalig)
+
+Nötig, wenn du das Projekt für dich klonst — die aktuelle `src/firebase.ts`
+zeigt auf das Projekt `my-orga-tool` und wird dich sonst nicht durchlassen.
+
+1. **Firebase-Projekt anlegen** unter <https://console.firebase.google.com>.
+2. **Firestore** aktivieren (Build → Firestore Database → Produktionsmodus, Region
+   `eur3`). Die Zugriffsregeln liegen in `firestore.rules`.
+3. **Authentication** aktivieren (Build → Authentication → E-Mail/Passwort) und
+   unter „Nutzer" deinen Account anlegen.
+4. **Web-App registrieren** (Projekteinstellungen → Web-Icon `</>`), die
+   `firebaseConfig`-Werte in `src/firebase.ts` einsetzen.
+5. **Firebase CLI** installieren und einloggen:
+   ```bash
+   npm install -g firebase-tools
+   firebase login
+   ```
+6. In `.firebaserc` deine Projekt-ID eintragen.
+7. Regeln deployen:
+   ```bash
+   firebase deploy --only firestore:rules
+   ```
+
+## Bauen & deployen
 
 ```bash
 npm run build
 firebase deploy --only hosting
 ```
 
-Danach zeigt die Konsole die Live-URL (z. B. `https://accessible-org-a1b2c.web.app`).
+## Daten-Modell
 
-## Wie die Daten gespeichert werden
-
-Der komplette App-Zustand (Projekte, Aufgaben, Notizen, Audit, Ressourcen,
-Weiterbildung, Meetings, Dankbarkeit/Tagesnotizen, Theme) liegt in **einem**
-Firestore-Dokument: `users/{deine-uid}/app/state`. Das reicht für eine
-Einzelperson locker aus (Firestore-Dokumente dürfen bis 1 MB groß sein) und hält
-das Setup einfach. Bei jeder Änderung wird nach 800ms Pause automatisch
-gespeichert (debounced), damit nicht bei jedem Tastenanschlag ein Schreibzugriff
-ausgelöst wird.
-
-## Wenn du später mehr brauchst
-
-- **Mehrere Geräte gleichzeitig offen**: aktuell "last write wins" – kein Problem
-  bei einer Person, die nacheinander an einem Gerät arbeitet.
-- **Automatisches Deployment**: `firebase init hosting:github` richtet einen
-  GitHub-Actions-Workflow ein, der bei jedem Push automatisch baut & deployed.
-- **Eigene Domain**: Hosting → "Benutzerdefinierte Domain hinzufügen" in der
-  Firebase Console.
+Kompletter App-Zustand (Projekte, Tasks, Notizen, Audit, Ressourcen, Learning,
+Meetings, Gratitude/Tagesnotizen, Theme) liegt in **einem** Firestore-Dokument:
+`users/{uid}/app/state`. Das reicht für eine Einzelperson locker (Firestore
+erlaubt bis 1 MB pro Dokument) und hält das Setup einfach. Änderungen werden
+mit 800 ms Debounce gespeichert, damit nicht jeder Tastenanschlag einen Write
+auslöst.
