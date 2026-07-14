@@ -50,7 +50,7 @@ export const LearningCard = ({ item, onEdit, onDelete, dragId, setDragId }: Prop
         onClick={(e) => e.stopPropagation()}
         className={styles.link}
       >
-        <Link2 size={11} /> {item.url}
+        {item.url}
       </a>
     )}
     {item.note && <div className={styles.note}>{item.note}</div>}

@@ -54,6 +54,10 @@
   cursor: pointer;
   font-family: inherit;
   color: var(--c-ink);
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  gap: 4px;
 }
 
 .listItemActive {
@@ -69,13 +73,17 @@
 }
 
 .listMeta {
-  font-size: 11px;
+  font-size: 12.5px;
   color: var(--c-slate);
   margin-bottom: 5px;
   display: flex;
   align-items: center;
   gap: 6px;
   flex-wrap: wrap;
+}
+
+.badgeSlot {
+  align-self: flex-start;
 }
 
 .empty {
@@ -102,6 +110,7 @@
   width: 100%;
   margin-bottom: 10px;
   padding: 0;
+  padding: 6px;
 }
 
 .selectRow {
@@ -114,8 +123,6 @@
 
 .select {
   @include select-base;
-  font-size: 12px;
-  padding: 4px 6px;
 }
 
 .dateMono {
@@ -145,3 +152,38 @@
 .textareaProtocol { min-height: 120px; margin-bottom: 14px; }
 .textareaOpen { min-height: 80px; margin-bottom: 14px; }
 .textareaNext { min-height: 80px; margin-bottom: 18px; }
+
+.deleteSection {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 18px;
+  padding-top: 14px;
+  border-top: 1px solid var(--c-border);
+}
+
+.confirmRow {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.confirmText {
+  font-size: 12.5px;
+  color: var(--c-fail);
+}
+
+.btnDelete {
+  @include btn-ghost-danger;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.btnConfirmDelete {
+  @include btn-danger-primary;
+}
+
+.btnCancel {
+  @include btn-ghost;
+}

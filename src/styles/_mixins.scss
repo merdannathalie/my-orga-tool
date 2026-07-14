@@ -46,7 +46,14 @@
 }
 
 @mixin select-base {
-  @include input-base;
+  color: var(--c-ink);
+  background: var(--c-input-bg);
+  border: 1px solid var(--c-border);
+  border-radius: 6px;
+  padding: 4px 8px;
+  font-size: 14px;
+  box-sizing: border-box;
+  font-family: inherit;
 }
 
 @mixin btn-primary {

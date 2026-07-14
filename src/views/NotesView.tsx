@@ -1,4 +1,5 @@
-import { Search, Plus } from "lucide-react";
+import { useState } from "react";
+import { Search, Plus, Trash2 } from "lucide-react";
 import { NoteTypeBadge, CompletedProjectPill } from "../components/Badges";
 import { NoteTaskCreator } from "../components/NoteTaskCreator";
 import { SLATE } from "../constants/colors";
@@ -23,6 +24,8 @@ const NOTE_TYPES: NoteType[] = ["Kunden-Call", "Intern", "Kick-off", "Review"];
 export const NotesView = ({
   notes, setNotes, projects, activeNote, setActiveNote, noteFilter, setNoteFilter, setTasks,
 }: Props) => {
+  const [confirmDeleteId, setConfirmDeleteId] = useState<number | null>(null);
+
   const filtered = notes
     .filter((n) => {
       const q = noteFilter.toLowerCase();
@@ -59,6 +62,15 @@ export const NotesView = ({
     setActiveNote(id);
   };
 
+  const deleteNote = (id: number) => {
+    setNotes((ns) => ns.filter((n) => n.id !== id));
+    setConfirmDeleteId(null);
+    if (activeNote === id) {
+      const remaining = notes.filter((n) => n.id !== id);
+      setActiveNote(remaining[0]?.id ?? 0);
+    }
+  };
+
   return (
     <div>
       <h1 className={cx(styles.h1, "aorg-h1")}>Notizen & Meeting-Protokolle</h1>
@@ -92,7 +104,9 @@ export const NotesView = ({
                     <span>{proj?.name} · {n.date}</span>
                     <CompletedProjectPill project={proj} />
                   </div>
-                  <NoteTypeBadge type={n.type} />
+                  <span className={styles.badgeSlot}>
+                    <NoteTypeBadge type={n.type} />
+                  </span>
                 </button>
               );
             })}
@@ -160,6 +174,27 @@ export const NotesView = ({
             />
 
             <NoteTaskCreator project={current.project} setTasks={setTasks} />
+
+            <div className={styles.deleteSection}>
+              {confirmDeleteId === current.id ? (
+                <div className={styles.confirmRow}>
+                  <span className={styles.confirmText}>Notiz wirklich löschen?</span>
+                  <button onClick={() => deleteNote(current.id)} className={styles.btnConfirmDelete}>
+                    Ja, löschen
+                  </button>
+                  <button onClick={() => setConfirmDeleteId(null)} className={styles.btnCancel}>
+                    Abbrechen
+                  </button>
+                </div>
+              ) : (
+                <button
+                  onClick={() => setConfirmDeleteId(current.id)}
+                  className={styles.btnDelete}
+                >
+                  <Trash2 size={13} /> Notiz löschen
+                </button>
+              )}
+            </div>
           </div>
         )}
       </div>
