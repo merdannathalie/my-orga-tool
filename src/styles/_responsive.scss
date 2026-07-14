@@ -1,0 +1,80 @@
+// Breakpoints — auf Mobile klappt die Sidebar in einen horizontalen Tab-Streifen
+// um, Grids fallen auf einspaltig zurück.
+
+@media (max-width: 720px) {
+  .aorg-shell {
+    flex-direction: column;
+    height: auto;
+    min-height: 100vh;
+  }
+
+  .aorg-sidebar {
+    width: 100% !important;
+    height: auto !important;
+    padding: 12px !important;
+  }
+
+  .aorg-nav-list {
+    flex-direction: row;
+    overflow-x: auto;
+    gap: 6px;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .aorg-nav-btn {
+    width: auto;
+    white-space: nowrap;
+
+    span {
+      display: none;
+    }
+  }
+
+  .aorg-main {
+    padding: 16px !important;
+  }
+
+  .aorg-h1 {
+    font-size: 20px !important;
+  }
+
+  .aorg-metrics {
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+
+  .aorg-kanban-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .aorg-notes-layout {
+    flex-direction: column;
+  }
+
+  .aorg-notes-list {
+    width: 100%;
+  }
+
+  .aorg-task-row {
+    flex-wrap: wrap;
+  }
+
+  .aorg-task-project {
+    width: auto;
+  }
+
+  .aorg-task-deadline {
+    width: auto;
+    text-align: left;
+  }
+
+  .aorg-mindful-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 420px) {
+  .aorg-metrics {
+    grid-template-columns: 1fr;
+  }
+}

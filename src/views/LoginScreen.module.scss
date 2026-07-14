@@ -1,0 +1,68 @@
+// LoginScreen läuft außerhalb der .aorg-shell — hardcodierte Farben, weil kein
+// Theme-Switch verfügbar.
+
+.screen {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background: #201f22;
+  font-family: "Atkinson Hyperlegible", sans-serif;
+}
+
+.card {
+  background: #2a282c;
+  border: 1px solid #48454a;
+  border-radius: 12px;
+  padding: 28px 26px;
+  width: 100%;
+  max-width: 340px;
+}
+
+.title {
+  font-size: 19px;
+  font-weight: 600;
+  color: #f1ece6;
+  margin: 0 0 18px;
+}
+
+.input {
+  width: 100%;
+  box-sizing: border-box;
+  margin-bottom: 10px;
+  background: #201e22;
+  color: #f1ece6;
+  border: 1px solid #48454a;
+  border-radius: 6px;
+  padding: 9px 11px;
+  font-size: 14px;
+  font-family: inherit;
+}
+
+.inputLast {
+  margin-bottom: 14px;
+}
+
+.error {
+  color: #ff6b5d;
+  font-size: 13px;
+  margin-bottom: 12px;
+}
+
+.submit {
+  width: 100%;
+  border: none;
+  background: #d48ad0;
+  color: #201f22;
+  border-radius: 6px;
+  padding: 10px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: inherit;
+
+  &:disabled {
+    cursor: default;
+    opacity: 0.7;
+  }
+}

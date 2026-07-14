@@ -1,0 +1,185 @@
+@use "../styles/mixins" as *;
+
+.h1 { @include page-h1; }
+
+.newProjectBtn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  width: 100%;
+  border: 1px dashed var(--c-slate);
+  background: transparent;
+  border-radius: 7px;
+  padding: 7px 10px;
+  font-size: 12.5px;
+  color: var(--c-slate);
+  cursor: pointer;
+  margin-bottom: 10px;
+  font-family: inherit;
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.listItem {
+  text-align: left;
+  background: var(--c-card);
+  border: 1px solid var(--c-border);
+  border-radius: 7px;
+  padding: 9px 11px;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+.listItemActive {
+  background: var(--c-selected-bg);
+  border-color: var(--c-focus);
+}
+
+.listItemName {
+  font-size: 13px;
+  font-weight: 500;
+  margin-bottom: 3px;
+}
+
+.listItemDeadline {
+  font-size: 11px;
+  color: var(--c-slate);
+  @include mono;
+}
+
+.empty {
+  font-size: 12.5px;
+  color: var(--c-slate);
+  padding: 8px 2px;
+}
+
+.completedSection {
+  margin-top: 18px;
+}
+
+.completedTitle {
+  font-size: 11px;
+  color: var(--c-slate);
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  margin-bottom: 6px;
+}
+
+.completedRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  background: var(--c-lane-bg);
+  border: 1px dashed var(--c-border);
+  border-radius: 7px;
+  padding: 8px 10px;
+}
+
+.completedName {
+  font-size: 12.5px;
+  color: var(--c-slate);
+  text-decoration: line-through;
+}
+
+.restoreBtn {
+  border: none;
+  background: transparent;
+  color: var(--c-focus);
+  font-size: 11.5px;
+  cursor: pointer;
+  white-space: nowrap;
+  font-family: inherit;
+}
+
+.editor {
+  flex: 1;
+  background: var(--c-card);
+  border: 1px solid var(--c-border);
+  border-radius: 10px;
+  padding: 18px 20px;
+}
+
+.editorTitle {
+  @include input-base;
+  font-family: "Atkinson Hyperlegible", sans-serif;
+  font-size: 18px;
+  font-weight: 600;
+  border: none;
+  outline: none;
+  width: 100%;
+  margin-bottom: 10px;
+  padding: 0;
+}
+
+.deadlineRow {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 14px;
+}
+
+.deadlineLabel {
+  font-size: 12px;
+  color: var(--c-slate);
+}
+
+.deadlineField {
+  @include input-base;
+  font-size: 12.5px;
+  padding: 5px 8px;
+  @include mono;
+  width: 140px;
+}
+
+.descLabel {
+  @include form-label;
+}
+
+.descTextarea {
+  @include textarea-base;
+  width: 100%;
+  min-height: 180px;
+  border-radius: 7px;
+  padding: 12px;
+  font-size: 13.5px;
+  font-family: "Atkinson Hyperlegible", sans-serif;
+  margin-bottom: 14px;
+}
+
+.actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.confirmRow {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.confirmText {
+  font-size: 12.5px;
+  color: var(--c-fail);
+}
+
+.btnComplete { @include btn-ghost-focus; }
+
+.btnDelete {
+  @include btn-ghost-danger;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.btnConfirmDelete { @include btn-danger-primary; }
+
+.btnCancel { @include btn-ghost; }

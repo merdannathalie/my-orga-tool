@@ -1,0 +1,114 @@
+@use "../styles/mixins" as *;
+
+.h1 { @include page-h1; }
+
+.toolbar {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 14px;
+  flex-wrap: wrap;
+}
+
+.searchBar {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex: 1;
+  min-width: 180px;
+  background: var(--c-card);
+  border: 1px solid var(--c-border);
+  border-radius: 7px;
+  padding: 6px 10px;
+}
+
+.searchInput {
+  border: none;
+  outline: none;
+  font-size: 13px;
+  flex: 1;
+  background: transparent;
+  color: var(--c-ink);
+  font-family: inherit;
+}
+
+.btnToggle {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  border: 1px dashed var(--c-slate);
+  background: transparent;
+  border-radius: 7px;
+  padding: 7px 12px;
+  font-size: 12.5px;
+  color: var(--c-slate);
+  cursor: pointer;
+  white-space: nowrap;
+  font-family: inherit;
+}
+
+.form {
+  background: var(--c-card);
+  border: 1px solid var(--c-border);
+  border-radius: 9px;
+  padding: 14px 16px;
+  margin-bottom: 16px;
+}
+
+.formRow {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 8px;
+  flex-wrap: wrap;
+}
+
+.formTitleInput {
+  @include input-base;
+  flex: 2;
+  min-width: 160px;
+}
+
+.formTypeSelect {
+  @include select-base;
+}
+
+.formUrl {
+  @include input-base;
+  width: 100%;
+  margin-bottom: 8px;
+}
+
+.formNote {
+  @include textarea-base;
+  width: 100%;
+  min-height: 60px;
+}
+
+.btnSave {
+  @include btn-primary;
+  margin-top: 8px;
+}
+
+.lane { @include kanban-lane; }
+.laneOver { @include kanban-lane-over; }
+
+.laneHeader {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--c-slate);
+  margin-bottom: 8px;
+  padding: 0 2px;
+}
+
+.laneList {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.empty {
+  font-size: 11px;
+  color: var(--c-slate);
+  padding: 6px 2px;
+}

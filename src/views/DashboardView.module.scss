@@ -1,0 +1,22 @@
+@use "../styles/mixins" as *;
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+
+.greeting {
+  @include page-h1;
+  margin: 0;
+}
+
+.date {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--c-ink);
+  font-family: "Atkinson Hyperlegible", sans-serif;
+}

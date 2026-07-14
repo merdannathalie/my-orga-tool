@@ -1,0 +1,19 @@
+.toggle {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  border: 1px solid var(--c-border);
+  background: transparent;
+  color: var(--c-slate);
+  border-radius: 6px;
+  padding: 5px 10px;
+  font-size: 12.5px;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+.toggleActive {
+  border-color: var(--c-focus);
+  background: var(--c-selected-bg);
+  color: var(--c-focus);
+}

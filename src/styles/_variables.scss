@@ -1,0 +1,42 @@
+// Theme-CSS-Variablen. Alle Farben werden hier zentral definiert und in JS
+// nur über var(--…) referenziert, damit Light-/Dark-Umschalten global funktioniert.
+
+.aorg-shell[data-theme="dark"] {
+  --c-ink: #F1ECE6;
+  --c-paper: #201F22;
+  --c-slate: #C4BEC1;
+  --c-pass: #3FCB8B;
+  --c-fail: #FF6B5D;
+  --c-amber: #E8B84B;
+  --c-focus: #D48AD0;
+  --c-card: #2A282C;
+  --c-border: #48454A;
+  --c-on-accent: #201F22;
+  --c-lane-bg: #332F33;
+  --c-selected-bg: rgba(212, 138, 208, 0.18);
+  --c-note-bg: #332F33;
+  --c-code-bg: #17161A;
+  --c-code-text: #E7DFEA;
+  --c-input-bg: #201E22;
+  --c-color-scheme: dark;
+}
+
+.aorg-shell[data-theme="light"] {
+  --c-ink: #241F26;
+  --c-paper: #F7F4F2;
+  --c-slate: #4E4854;
+  --c-pass: #1C7C54;
+  --c-fail: #C1432B;
+  --c-amber: #9A6B00;
+  --c-focus: #A9449B;
+  --c-card: #FFFFFF;
+  --c-border: #E1DAE2;
+  --c-on-accent: #FFFFFF;
+  --c-lane-bg: #F1ECEF;
+  --c-selected-bg: rgba(169, 68, 155, 0.12);
+  --c-note-bg: #F4F0F2;
+  --c-code-bg: #211C27;
+  --c-code-text: #E7DFEA;
+  --c-input-bg: #F1ECEF;
+  --c-color-scheme: light;
+}

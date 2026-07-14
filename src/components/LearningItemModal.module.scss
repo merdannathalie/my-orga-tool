@@ -1,0 +1,38 @@
+@use "../styles/mixins" as *;
+
+.overlay { @include modal-overlay; }
+.panel { @include modal-panel; }
+
+.header { @include modal-header; }
+
+.title {
+  font-family: "Atkinson Hyperlegible", sans-serif;
+  font-size: 17px;
+  font-weight: 600;
+  margin: 0;
+}
+
+.closeBtn { @include btn-icon; }
+
+.input {
+  @include input-base;
+  width: 100%;
+  padding: 8px 10px;
+  margin-bottom: 8px;
+}
+
+.textarea {
+  @include textarea-base;
+  width: 100%;
+  padding: 8px 10px;
+  min-height: 90px;
+  margin-bottom: 16px;
+}
+
+.actions {
+  display: flex;
+  gap: 8px;
+}
+
+.btnSave { @include btn-primary; }
+.btnCancel { @include btn-ghost; }

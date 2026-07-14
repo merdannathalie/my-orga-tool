@@ -1,0 +1,216 @@
+@use "../styles/mixins" as *;
+
+.panel {
+  @include panel-padded;
+  margin-bottom: 28px;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 10px;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.title { @include section-h2; }
+
+.btnToggle {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  border: 1px solid var(--c-slate);
+  background: transparent;
+  border-radius: 6px;
+  padding: 5px 9px;
+  font-size: 14px;
+  color: var(--c-slate);
+  cursor: pointer;
+  font-family: inherit;
+}
+
+.form {
+  background: var(--c-input-bg);
+  border: 1px solid var(--c-border);
+  border-radius: 9px;
+  padding: 12px 14px;
+  margin-bottom: 12px;
+}
+
+.formInput {
+  @include input-base;
+  background: var(--c-card);
+  width: 100%;
+  font-size: 15px;
+  margin-bottom: 8px;
+}
+
+.formRow {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 8px;
+}
+
+.date {
+  @include input-base;
+  background: var(--c-card);
+  font-size: 15px;
+  @include mono;
+  width: 150px;
+}
+
+.time {
+  @include input-base;
+  background: var(--c-card);
+  font-size: 15px;
+  @include mono;
+  width: 100px;
+}
+
+.participants {
+  @include input-base;
+  background: var(--c-card);
+  flex: 1;
+  min-width: 140px;
+  font-size: 15px;
+}
+
+.link {
+  @include input-base;
+  background: var(--c-card);
+  width: 100%;
+  font-size: 15px;
+  margin-bottom: 8px;
+}
+
+.btnSave {
+  @include btn-primary;
+  font-size: 15px;
+}
+
+.dayNav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.arrows {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.btnArrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--c-border);
+  background: transparent;
+  color: var(--c-slate);
+  border-radius: 6px;
+  padding: 5px 8px;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+.btnToday {
+  border: none;
+  background: transparent;
+  color: var(--c-focus);
+  font-size: 12.5px;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+.lane {
+  @include kanban-lane;
+}
+
+.laneOver {
+  @include kanban-lane-over;
+}
+
+.laneHeader {
+  display: flex;
+  justify-content: space-between;
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--c-slate);
+  margin-bottom: 8px;
+  padding: 0 2px;
+}
+
+.laneList {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.card {
+  background: var(--c-card);
+  border: 1px solid var(--c-border);
+  border-radius: 7px;
+  padding: 9px 11px;
+  cursor: grab;
+  transition: opacity 0.1s ease;
+}
+
+.cardDragging { opacity: 0.4; }
+
+.cardBody {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 6px;
+}
+
+.cardMain {
+  flex: 1;
+  min-width: 0;
+}
+
+.cardTime {
+  font-size: 15.5px;
+  font-weight: 500;
+  color: var(--c-focus);
+  @include mono;
+}
+
+.cardTitle {
+  font-size: 15px;
+  font-weight: 500;
+  margin-top: 2px;
+}
+
+.cardParticipants {
+  font-size: 13px;
+  color: var(--c-slate);
+  margin-top: 3px;
+}
+
+.cardLink {
+  font-size: 13px;
+  color: var(--c-focus);
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  text-decoration: none;
+  margin-top: 3px;
+}
+
+.cardActions {
+  display: flex;
+  gap: 2px;
+  flex-shrink: 0;
+}
+
+.iconBtn { @include btn-icon; }
+
+.empty {
+  font-size: 13px;
+  color: var(--c-slate);
+  padding: 6px 2px;
+}

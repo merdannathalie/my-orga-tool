@@ -1,0 +1,28 @@
+// Basis-Reset innerhalb der App-Shell. Läuft absichtlich nicht global,
+// damit Login-Screen o. ä. außerhalb der Shell unangetastet bleiben.
+
+.aorg-shell {
+  box-sizing: border-box;
+
+  * {
+    box-sizing: border-box;
+  }
+
+  input::placeholder,
+  textarea::placeholder {
+    color: var(--c-slate);
+    opacity: 1;
+  }
+
+  input:focus,
+  textarea:focus,
+  select:focus {
+    outline: 2px solid #D9A9E0;
+    outline-offset: 1px;
+  }
+}
+
+@keyframes aorg-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}

@@ -1,0 +1,145 @@
+@use "../styles/mixins" as *;
+
+.h1 { @include page-h1; }
+
+.searchBar {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--c-card);
+  border: 1px solid var(--c-border);
+  border-radius: 7px;
+  padding: 6px 10px;
+  margin-bottom: 10px;
+}
+
+.searchInput {
+  border: none;
+  outline: none;
+  font-size: 13px;
+  flex: 1;
+  background: transparent;
+  color: var(--c-ink);
+  font-family: inherit;
+}
+
+.newBtn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  width: 100%;
+  border: 1px dashed var(--c-slate);
+  background: transparent;
+  border-radius: 7px;
+  padding: 7px 10px;
+  font-size: 12.5px;
+  color: var(--c-slate);
+  cursor: pointer;
+  margin-bottom: 10px;
+  font-family: inherit;
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.listItem {
+  text-align: left;
+  background: var(--c-card);
+  border: 1px solid var(--c-border);
+  border-radius: 7px;
+  padding: 9px 11px;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+.listItemActive {
+  background: var(--c-selected-bg);
+  border-color: var(--c-focus);
+}
+
+.listTitle {
+  font-size: 13px;
+  font-weight: 500;
+  margin-bottom: 3px;
+}
+
+.listMeta {
+  font-size: 11px;
+  color: var(--c-slate);
+  margin-bottom: 5px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.empty {
+  font-size: 12.5px;
+  color: var(--c-slate);
+  padding: 8px 2px;
+}
+
+.editor {
+  flex: 1;
+  background: var(--c-card);
+  border: 1px solid var(--c-border);
+  border-radius: 10px;
+  padding: 18px 20px;
+}
+
+.editorTitle {
+  @include input-base;
+  font-family: "Atkinson Hyperlegible", sans-serif;
+  font-size: 18px;
+  font-weight: 600;
+  border: none;
+  outline: none;
+  width: 100%;
+  margin-bottom: 10px;
+  padding: 0;
+}
+
+.selectRow {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+}
+
+.select {
+  @include select-base;
+  font-size: 12px;
+  padding: 4px 6px;
+}
+
+.dateMono {
+  font-size: 12px;
+  color: var(--c-slate);
+  @include mono;
+}
+
+.label { @include form-label; }
+
+.input {
+  @include input-base;
+  width: 100%;
+  padding: 8px 10px;
+  margin-bottom: 14px;
+}
+
+.textarea {
+  @include textarea-base;
+  width: 100%;
+  padding: 10px 12px;
+  border-radius: 7px;
+  font-size: 13.5px;
+  font-family: "Atkinson Hyperlegible", sans-serif;
+}
+
+.textareaProtocol { min-height: 120px; margin-bottom: 14px; }
+.textareaOpen { min-height: 80px; margin-bottom: 14px; }
+.textareaNext { min-height: 80px; margin-bottom: 18px; }

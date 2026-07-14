@@ -1,0 +1,65 @@
+// Layout- und Grid-Klassen, die view-übergreifend verwendet werden.
+
+.aorg-metrics {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+  margin-bottom: 28px;
+}
+
+.aorg-kanban-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}
+
+.aorg-notes-layout {
+  display: flex;
+  gap: 18px;
+  align-items: flex-start;
+}
+
+.aorg-notes-list {
+  width: 260px;
+  flex-shrink: 0;
+}
+
+.aorg-nav-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.aorg-nav-btn {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  text-align: left;
+}
+
+.aorg-task-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.aorg-task-title {
+  flex: 1;
+  min-width: 140px;
+}
+
+.aorg-task-priority {
+  width: 80px;
+  flex-shrink: 0;
+}
+
+.aorg-task-project {
+  width: 170px;
+  flex-shrink: 0;
+}
+
+.aorg-task-deadline {
+  width: 80px;
+  flex-shrink: 0;
+  text-align: right;
+}

@@ -1,0 +1,166 @@
+// Gemeinsame Style-Bausteine für Component-Module. Werden via
+//   @use "../styles/mixins" as *;
+// in den einzelnen *.module.scss-Dateien eingebunden.
+
+@mixin card {
+  background: var(--c-card);
+  border: 1px solid var(--c-border);
+  border-radius: 10px;
+}
+
+@mixin panel-padded {
+  @include card;
+  padding: 12px 16px;
+}
+
+@mixin page-h1 {
+  font-family: "Atkinson Hyperlegible", sans-serif;
+  font-size: 24px;
+  font-weight: 600;
+  margin: 0 0 20px;
+}
+
+@mixin section-h2 {
+  font-family: "Atkinson Hyperlegible", sans-serif;
+  font-size: 17px;
+  font-weight: 600;
+  color: var(--c-ink);
+  margin: 0;
+}
+
+@mixin input-base {
+  color: var(--c-ink);
+  background: var(--c-input-bg);
+  border: 1px solid var(--c-border);
+  border-radius: 6px;
+  padding: 7px 9px;
+  font-size: 13px;
+  box-sizing: border-box;
+  font-family: inherit;
+}
+
+@mixin textarea-base {
+  @include input-base;
+  resize: vertical;
+  line-height: 1.55;
+}
+
+@mixin select-base {
+  @include input-base;
+}
+
+@mixin btn-primary {
+  border: none;
+  background: var(--c-focus);
+  color: var(--c-on-accent);
+  border-radius: 6px;
+  padding: 7px 14px;
+  font-size: 12.5px;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+@mixin btn-danger-primary {
+  @include btn-primary;
+  background: var(--c-fail);
+}
+
+@mixin btn-ghost {
+  border: 1px solid var(--c-border);
+  background: transparent;
+  color: var(--c-slate);
+  border-radius: 6px;
+  padding: 7px 14px;
+  font-size: 12.5px;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+@mixin btn-ghost-focus {
+  @include btn-ghost;
+  border-color: var(--c-focus);
+  color: var(--c-focus);
+}
+
+@mixin btn-ghost-danger {
+  @include btn-ghost;
+  border-color: var(--c-fail);
+  color: var(--c-fail);
+}
+
+@mixin btn-icon {
+  border: none;
+  background: transparent;
+  color: var(--c-slate);
+  cursor: pointer;
+  padding: 2px;
+  flex-shrink: 0;
+  font-family: inherit;
+}
+
+@mixin modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(20, 32, 43, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  z-index: 100;
+}
+
+@mixin modal-panel {
+  background: var(--c-card);
+  border-radius: 12px;
+  border: 1px solid var(--c-border);
+  padding: 20px 22px;
+  width: 100%;
+  max-width: 440px;
+  max-height: 85vh;
+  overflow-y: auto;
+}
+
+@mixin modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+
+@mixin kanban-lane {
+  background: var(--c-lane-bg);
+  border: 1px solid var(--c-border);
+  border-radius: 9px;
+  padding: 10px;
+  min-height: 160px;
+}
+
+@mixin kanban-lane-over {
+  background: var(--c-selected-bg);
+  border: 1px dashed var(--c-focus);
+}
+
+@mixin kanban-card {
+  background: var(--c-card);
+  border: 1px solid var(--c-border);
+  border-radius: 7px;
+  padding: 8px 9px;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+@mixin form-label {
+  font-size: 12px;
+  color: var(--c-slate);
+  margin-bottom: 4px;
+}
+
+@mixin muted {
+  font-size: 12.5px;
+  color: var(--c-slate);
+}
+
+@mixin mono {
+  font-family: "IBM Plex Mono", monospace;
+}

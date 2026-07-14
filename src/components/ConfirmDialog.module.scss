@@ -1,0 +1,33 @@
+@use "../styles/mixins" as *;
+
+.overlay {
+  @include modal-overlay;
+  z-index: 200;
+}
+
+.panel {
+  @include modal-panel;
+  max-width: 360px;
+}
+
+.message {
+  font-size: 14px;
+  color: var(--c-ink);
+  margin: 0 0 16px;
+  line-height: 1.5;
+}
+
+.actions {
+  display: flex;
+  gap: 8px;
+}
+
+.btnConfirm {
+  @include btn-danger-primary;
+  font-size: 13px;
+}
+
+.btnCancel {
+  @include btn-ghost;
+  font-size: 13px;
+}

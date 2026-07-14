@@ -1,0 +1,134 @@
+@use "../styles/mixins" as *;
+
+.overlay { @include modal-overlay; }
+
+.panel {
+  @include modal-panel;
+  max-width: 480px;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 10px;
+  margin-bottom: 6px;
+}
+
+.tags {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.closeBtn {
+  @include btn-icon;
+  color: var(--c-slate);
+}
+
+.title {
+  font-family: "Atkinson Hyperlegible", sans-serif;
+  font-size: 17px;
+  font-weight: 600;
+  margin: 8px 0 2px;
+}
+
+.subtitle {
+  font-size: 11.5px;
+  color: var(--c-slate);
+  margin-bottom: 16px;
+}
+
+.statusRow {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 14px;
+}
+
+.label {
+  @include form-label;
+}
+
+.noteText {
+  font-size: 13.5px;
+  line-height: 1.55;
+  white-space: pre-wrap;
+  margin: 0 0 14px;
+}
+
+.noteTextFilled { color: var(--c-ink); }
+.noteTextEmpty { color: var(--c-slate); }
+
+.codePre {
+  background: var(--c-code-bg);
+  color: var(--c-code-text);
+  @include mono;
+  font-size: 12px;
+  padding: 10px 12px;
+  border-radius: 7px;
+  overflow-x: auto;
+  margin: 0 0 14px;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.btnEdit {
+  @include btn-ghost-focus;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.editRow {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 10px;
+}
+
+.select {
+  @include select-base;
+  flex: 1;
+  min-width: 150px;
+}
+
+.criticalLabel {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12.5px;
+  color: var(--c-ink);
+  border: 1px solid var(--c-border);
+  border-radius: 6px;
+  padding: 7px 10px;
+  cursor: pointer;
+}
+
+.textareaNote {
+  @include textarea-base;
+  width: 100%;
+  min-height: 80px;
+  margin-bottom: 10px;
+  font-family: "Atkinson Hyperlegible", sans-serif;
+}
+
+.textareaCode {
+  @include textarea-base;
+  width: 100%;
+  min-height: 90px;
+  margin-bottom: 14px;
+  font-size: 12.5px;
+  @include mono;
+  background: var(--c-note-bg);
+}
+
+.editActions {
+  display: flex;
+  gap: 8px;
+}
+
+.btnSave { @include btn-primary; }
+.btnCancel { @include btn-ghost; }

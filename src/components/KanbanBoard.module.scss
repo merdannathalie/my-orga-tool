@@ -1,0 +1,185 @@
+@use "../styles/mixins" as *;
+
+.panel {
+  @include panel-padded;
+  margin-bottom: 28px;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 10px;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.title { @include section-h2; }
+
+.headerActions {
+  display: flex;
+  gap: 8px;
+}
+
+.btnToggle {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  border: 1px solid var(--c-slate);
+  background: transparent;
+  border-radius: 6px;
+  padding: 5px 9px;
+  font-size: 14px;
+  color: var(--c-slate);
+  cursor: pointer;
+  font-family: inherit;
+}
+
+.btnClearDone {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  background: transparent;
+  border: 1px solid var(--c-border);
+  color: var(--c-slate);
+  border-radius: 6px;
+  padding: 5px 9px;
+  font-size: 14px;
+  cursor: default;
+  font-family: inherit;
+}
+
+.btnClearDoneActive {
+  border-color: var(--c-fail);
+  color: var(--c-fail);
+  cursor: pointer;
+}
+
+.form {
+  background: var(--c-input-bg);
+  border: 1px solid var(--c-border);
+  border-radius: 9px;
+  padding: 14px 16px;
+  margin-bottom: 14px;
+}
+
+.formInput {
+  @include input-base;
+  background: var(--c-card);
+  width: 100%;
+  font-size: 16px;
+  margin-bottom: 8px;
+}
+
+.formTextarea {
+  @include textarea-base;
+  background: var(--c-card);
+  width: 100%;
+  min-height: 56px;
+  font-size: 16px;
+  margin-bottom: 8px;
+}
+
+.formRow {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.projectSelect {
+  @include select-base;
+  background: var(--c-card);
+  flex: 1;
+  min-width: 140px;
+  font-size: 16px;
+}
+
+.prioritySelect {
+  @include select-base;
+  background: var(--c-card);
+  font-size: 16px;
+}
+
+.date {
+  @include input-base;
+  background: var(--c-card);
+  font-size: 16px;
+  @include mono;
+  width: 160px;
+}
+
+.btnCreate {
+  @include btn-primary;
+  font-size: 15px;
+}
+
+.lane {
+  @include kanban-lane;
+}
+
+.laneOver {
+  @include kanban-lane-over;
+}
+
+.laneHeader {
+  display: flex;
+  justify-content: space-between;
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--c-slate);
+  margin-bottom: 8px;
+  padding: 0 2px;
+}
+
+.laneList {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.card {
+  @include kanban-card;
+  transition: opacity 0.1s ease;
+}
+
+.cardDragging { opacity: 0.4; }
+
+.cardBody {
+  display: flex;
+  gap: 6px;
+  align-items: flex-start;
+}
+
+.grip {
+  margin-top: 2px;
+  flex-shrink: 0;
+}
+
+.cardMain {
+  flex: 1;
+  min-width: 0;
+}
+
+.cardTitle {
+  font-size: 15.5px;
+  line-height: 1.35;
+}
+
+.cardMeta {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 6px;
+  flex-wrap: wrap;
+}
+
+.cardProject {
+  font-size: 13.5px;
+  color: var(--c-slate);
+}
+
+.empty {
+  font-size: 14px;
+  color: var(--c-slate);
+  padding: 6px 2px;
+}

@@ -1,0 +1,100 @@
+@use "./styles/mixins" as *;
+
+.loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background: var(--c-paper);
+  color: var(--c-ink);
+  font-family: "Atkinson Hyperlegible", sans-serif;
+}
+
+.loadingRow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 14px;
+}
+
+.loadingSpinner {
+  animation: aorg-spin 1s linear infinite;
+}
+
+.shell {
+  display: flex;
+  height: 100vh;
+  background: var(--c-paper);
+  font-family: "Atkinson Hyperlegible", sans-serif;
+  color: var(--c-ink);
+  border-radius: 10px;
+  overflow: hidden;
+  border: 1px solid var(--c-border);
+}
+
+.sidebar {
+  width: 216px;
+  background: linear-gradient(165deg, #5a3468 0%, #2e2438 65%);
+  color: #c9c2d3;
+  padding: 20px 14px;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.nav {
+  margin-top: 4px;
+}
+
+.navBtn {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  text-align: left;
+  padding: 8px 10px;
+  margin-bottom: 2px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  font-size: 13.5px;
+  background: transparent;
+  color: #c9c2d3;
+  font-family: inherit;
+}
+
+.navBtnActive {
+  background: rgba(212, 138, 208, 0.3);
+  color: #ffffff;
+}
+
+.sidebarFooter {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: auto;
+  gap: 8px;
+}
+
+.signOut {
+  border: none;
+  background: transparent;
+  color: #c9c2d3;
+  cursor: pointer;
+  padding: 4px;
+  font-family: inherit;
+}
+
+.syncStatus {
+  font-size: 10.5px;
+  color: rgba(201, 194, 211, 0.7);
+  margin-top: 8px;
+}
+
+.main {
+  flex: 1;
+  padding: 28px 32px;
+  overflow-y: auto;
+  min-width: 0;
+}
