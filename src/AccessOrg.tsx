@@ -1,7 +1,12 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { LogOut, Loader2 } from "lucide-react";
-import { doc, getDoc, setDoc, serverTimestamp } from "firebase/firestore";
-import { db } from "./firebase";
+
+import {
+  loadAll, syncCollection, loadSettings, saveSettings, loadLegacy,
+} from "./firestore/repos";
+import {
+  useDebouncedCollectionSync, useDebouncedSettingsSync,
+} from "./firestore/hooks";
 
 import { ThemeToggle } from "./components/ThemeToggle";
 import { MobileNav } from "./components/MobileNav";
@@ -51,24 +56,104 @@ export const AccessOrg = ({ uid, onSignOut }: Props) => {
 
   const [hydrated, setHydrated] = useState(false);
 
+  // Letzter bekannter Firestore-Stand pro Collection. Wird beim Load initialisiert
+  // und pro Hook-Aufruf nach erfolgreichem Diff-Sync fortgeschrieben. Der Diff
+  // gegen den Ref entscheidet, was upgedatet und was gelöscht wird.
+  // Getrennte Refs → jeder Save-Hook hat seinen eigenen Snapshot, unabhängig
+  // von den anderen Collections.
+  const projectsSynced = useRef<Project[]>([]);
+  const tasksSynced = useRef<Task[]>([]);
+  const notesSynced = useRef<Note[]>([]);
+  const resourcesSynced = useRef<Resource[]>([]);
+  const learningSynced = useRef<LearningItem[]>([]);
+  const auditSynced = useRef<AuditItem[]>([]);
+  const meetingsSynced = useRef<Meeting[]>([]);
+
   useEffect(() => {
     let cancelled = false;
     (async () => {
       try {
-        const ref = doc(db, "users", uid, "app", "state");
-        const snap = await getDoc(ref);
-        if (!cancelled && snap.exists()) {
-          const d = snap.data();
-          if (d.projects) setProjects(d.projects);
-          if (d.audit) setAudit(d.audit);
-          if (d.tasks) setTasks(d.tasks);
-          if (d.notes) setNotes(d.notes);
-          if (d.resources) setResources(d.resources);
-          if (d.learningItems) setLearningItems(d.learningItems);
-          if (d.gratitude) setGratitude(d.gratitude);
-          if (typeof d.dayNotes === "string") setDayNotes(d.dayNotes);
-          if (d.meetings) setMeetings(d.meetings);
-          if (d.theme) setTheme(d.theme);
+        // 1) Parallel aus allen Collections laden
+        const [
+          projectsDb, tasksDb, notesDb, resourcesDb, learningDb, auditDb, meetingsDb, settingsDb,
+        ] = await Promise.all([
+          loadAll<Project>(uid, "projects"),
+          loadAll<Task>(uid, "tasks"),
+          loadAll<Note>(uid, "notes"),
+          loadAll<Resource>(uid, "resources"),
+          loadAll<LearningItem>(uid, "learning"),
+          loadAll<AuditItem>(uid, "audit"),
+          loadAll<Meeting>(uid, "meetings"),
+          loadSettings(uid),
+        ]);
+
+        // 2) Falls alle Collections + Settings leer sind, aber ein Legacy-Doc
+        //    existiert (users/{uid}/app/state), einmalig hoch-migrieren.
+        const allEmpty =
+          !projectsDb.length && !tasksDb.length && !notesDb.length &&
+          !resourcesDb.length && !learningDb.length && !auditDb.length &&
+          !meetingsDb.length && !settingsDb;
+
+        if (allEmpty) {
+          const legacy = await loadLegacy(uid);
+          if (!cancelled && legacy) {
+            await Promise.all([
+              syncCollection(uid, "projects", legacy.projects ?? [], []),
+              syncCollection(uid, "tasks", legacy.tasks ?? [], []),
+              syncCollection(uid, "notes", legacy.notes ?? [], []),
+              syncCollection(uid, "resources", legacy.resources ?? [], []),
+              syncCollection(uid, "learning", legacy.learningItems ?? [], []),
+              syncCollection(uid, "audit", legacy.audit ?? [], []),
+              syncCollection(uid, "meetings", legacy.meetings ?? [], []),
+              saveSettings(uid, {
+                gratitude: legacy.gratitude ?? ["", "", ""],
+                dayNotes: legacy.dayNotes ?? "",
+                theme: legacy.theme ?? "dark",
+              }),
+            ]);
+
+            if (cancelled) return;
+
+            // States aus dem Legacy-Doc befüllen
+            if (legacy.projects) setProjects(legacy.projects);
+            if (legacy.tasks) setTasks(legacy.tasks);
+            if (legacy.notes) setNotes(legacy.notes);
+            if (legacy.resources) setResources(legacy.resources);
+            if (legacy.learningItems) setLearningItems(legacy.learningItems);
+            if (legacy.audit) setAudit(legacy.audit);
+            if (legacy.meetings) setMeetings(legacy.meetings);
+            if (legacy.gratitude) setGratitude(legacy.gratitude);
+            if (typeof legacy.dayNotes === "string") setDayNotes(legacy.dayNotes);
+            if (legacy.theme) setTheme(legacy.theme);
+
+            projectsSynced.current = legacy.projects ?? [];
+            tasksSynced.current = legacy.tasks ?? [];
+            notesSynced.current = legacy.notes ?? [];
+            resourcesSynced.current = legacy.resources ?? [];
+            learningSynced.current = legacy.learningItems ?? [];
+            auditSynced.current = legacy.audit ?? [];
+            meetingsSynced.current = legacy.meetings ?? [];
+          }
+        } else if (!cancelled) {
+          // Normalfall: State aus den Collections befüllen
+          if (projectsDb.length) setProjects(projectsDb);
+          if (tasksDb.length) setTasks(tasksDb);
+          if (notesDb.length) setNotes(notesDb);
+          if (resourcesDb.length) setResources(resourcesDb);
+          if (learningDb.length) setLearningItems(learningDb);
+          if (auditDb.length) setAudit(auditDb);
+          if (meetingsDb.length) setMeetings(meetingsDb);
+          if (settingsDb?.gratitude) setGratitude(settingsDb.gratitude);
+          if (typeof settingsDb?.dayNotes === "string") setDayNotes(settingsDb.dayNotes);
+          if (settingsDb?.theme) setTheme(settingsDb.theme);
+
+          projectsSynced.current = projectsDb;
+          tasksSynced.current = tasksDb;
+          notesSynced.current = notesDb;
+          resourcesSynced.current = resourcesDb;
+          learningSynced.current = learningDb;
+          auditSynced.current = auditDb;
+          meetingsSynced.current = meetingsDb;
         }
       } catch (err) {
         console.error("Firestore-Laden fehlgeschlagen:", err);
@@ -79,23 +164,17 @@ export const AccessOrg = ({ uid, onSignOut }: Props) => {
     return () => { cancelled = true; };
   }, [uid]);
 
-  useEffect(() => {
-    if (!hydrated) return;
-    const t = setTimeout(async () => {
-      try {
-        const ref = doc(db, "users", uid, "app", "state");
-        await setDoc(ref, {
-          projects, audit, tasks, notes, resources, learningItems,
-          gratitude, dayNotes, meetings, theme,
-          updatedAt: serverTimestamp(),
-        });
-      } catch (err) {
-        console.error("Firestore-Speichern fehlgeschlagen:", err);
-      }
-    }, 800);
-    return () => clearTimeout(t);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [projects, audit, tasks, notes, resources, learningItems, gratitude, dayNotes, meetings, theme, hydrated, uid]);
+  // Ein eigener debounced Sync pro Collection. Jeder Hook feuert nur, wenn SEIN
+  // State-Slice sich ändert — bearbeitet man z. B. nur eine Notiz, wird nur die
+  // notes-Collection angefasst; projects/tasks/resources/… bleiben stumm.
+  useDebouncedCollectionSync(uid, hydrated, "projects", projects, projectsSynced);
+  useDebouncedCollectionSync(uid, hydrated, "tasks", tasks, tasksSynced);
+  useDebouncedCollectionSync(uid, hydrated, "notes", notes, notesSynced);
+  useDebouncedCollectionSync(uid, hydrated, "resources", resources, resourcesSynced);
+  useDebouncedCollectionSync(uid, hydrated, "learning", learningItems, learningSynced);
+  useDebouncedCollectionSync(uid, hydrated, "audit", audit, auditSynced);
+  useDebouncedCollectionSync(uid, hydrated, "meetings", meetings, meetingsSynced);
+  useDebouncedSettingsSync(uid, hydrated, gratitude, dayNotes, theme);
 
   const toggleTask = (id: number) =>
     setTasks((t) => t.map((x) => (x.id === id ? { ...x, col: x.col === "done" ? "todo" : "done" } : x)));
