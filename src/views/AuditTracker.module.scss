@@ -14,7 +14,7 @@
   border: none;
   cursor: pointer;
   padding: 6px 0;
-  font-size: 0.875rem;
+  font-size: 0.88rem;
   font-weight: 500;
   color: var(--c-ink);
   text-align: left;
@@ -22,7 +22,7 @@
 }
 
 .projectMeta {
-  font-size: 0.6875rem;
+  font-size: 0.69rem;
   color: var(--c-slate);
   font-weight: 400;
 }
@@ -32,7 +32,7 @@
 .emptyBody { padding: 6px 0; }
 
 .emptyText {
-  font-size: 0.7812rem;
+  font-size: 0.78rem;
   color: var(--c-slate);
   margin: 0 0 8px;
   max-width: 440px;
@@ -60,7 +60,7 @@
   border: none;
   cursor: pointer;
   padding: 4px 0;
-  font-size: 0.7812rem;
+  font-size: 0.78rem;
   font-weight: 500;
   color: var(--c-slate);
   text-align: left;
@@ -98,21 +98,21 @@
 }
 
 .itemName {
-  font-size: 0.7812rem;
+  font-size: 0.78rem;
   flex: 1;
   min-width: 120px;
   color: var(--c-card-title);
 }
 
 .itemLevel {
-  font-size: 0.6562rem;
+  font-size: 0.66rem;
   color: var(--c-slate);
   @include mono;
 }
 
 .itemStatus {
   color: var(--item-status-color);
-  font-size: 0.7188rem;
+  font-size: 0.72rem;
   min-width: 80px;
   text-align: right;
 }

@@ -29,7 +29,7 @@
   background: transparent;
   border-radius: 6px;
   padding: 5px 9px;
-  font-size: 0.875rem;
+  font-size: 0.88rem;
   color: var(--c-slate);
   cursor: pointer;
   font-family: inherit;
@@ -44,7 +44,7 @@
   color: var(--c-slate);
   border-radius: 6px;
   padding: 5px 9px;
-  font-size: 0.875rem;
+  font-size: 0.88rem;
   cursor: default;
   font-family: inherit;
 }
@@ -110,7 +110,7 @@
 
 .btnCreate {
   @include btn-primary;
-  font-size: 0.9375rem;
+  font-size: 0.94rem;
 }
 
 .lane {
@@ -124,7 +124,7 @@
 .laneHeader {
   display: flex;
   justify-content: space-between;
-  font-size: 0.9375rem;
+  font-size: 0.94rem;
   font-weight: 500;
   color: var(--c-slate);
   margin-bottom: 8px;
@@ -161,7 +161,7 @@
 }
 
 .cardTitle {
-  font-size: 0.9688rem;
+  font-size: 0.97rem;
   line-height: 1.35;
 }
 
@@ -174,12 +174,12 @@
 }
 
 .cardProject {
-  font-size: 0.8438rem;
+  font-size: 0.84rem;
   color: var(--c-slate);
 }
 
 .empty {
-  font-size: 0.875rem;
+  font-size: 0.88rem;
   color: var(--c-slate);
   padding: 6px 2px;
 }

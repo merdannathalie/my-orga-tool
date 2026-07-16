@@ -9,7 +9,7 @@
 
 .title {
   font-family: "Atkinson Hyperlegible", sans-serif;
-  font-size: 1.0625rem;
+  font-size: 1.06rem;
   font-weight: 600;
   margin: 0;
 }
@@ -19,7 +19,7 @@
 .input {
   @include input-base;
   width: 100%;
-  font-size: 0.9375rem;
+  font-size: 0.94rem;
   padding: 8px 10px;
   margin-bottom: 8px;
 }
@@ -34,7 +34,7 @@
 .date {
   @include input-base;
   padding: 8px 10px;
-  font-size: 0.9375rem;
+  font-size: 0.94rem;
   @include mono;
   width: 150px;
 }
@@ -42,7 +42,7 @@
 .time {
   @include input-base;
   padding: 8px 10px;
-  font-size: 0.9375rem;
+  font-size: 0.94rem;
   @include mono;
   width: 100px;
 }
@@ -50,7 +50,7 @@
 .link {
   @include input-base;
   width: 100%;
-  font-size: 0.9375rem;
+  font-size: 0.94rem;
   padding: 8px 10px;
   margin-bottom: 16px;
 }
@@ -62,10 +62,10 @@
 
 .btnSave {
   @include btn-primary;
-  font-size: 0.875rem;
+  font-size: 0.88rem;
 }
 
 .btnCancel {
   @include btn-ghost;
-  font-size: 0.875rem;
+  font-size: 0.88rem;
 }

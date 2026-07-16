@@ -13,7 +13,7 @@
   background: transparent;
   color: var(--c-focus);
   cursor: pointer;
-  font-size: 0.7812rem;
+  font-size: 0.78rem;
   padding: 0;
   font-family: inherit;
 }
@@ -45,7 +45,7 @@
 .btnAdd { @include btn-primary; }
 
 .confirmation {
-  font-size: 0.7188rem;
+  font-size: 0.72rem;
   color: var(--c-pass);
   margin-top: 8px;
 }

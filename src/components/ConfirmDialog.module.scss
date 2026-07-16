@@ -11,7 +11,7 @@
 }
 
 .message {
-  font-size: 0.875rem;
+  font-size: 0.88rem;
   color: var(--c-ink);
   margin: 0 0 16px;
   line-height: 1.5;
@@ -24,10 +24,10 @@
 
 .btnConfirm {
   @include btn-danger-primary;
-  font-size: 0.8125rem;
+  font-size: 0.81rem;
 }
 
 .btnCancel {
   @include btn-ghost;
-  font-size: 0.8125rem;
+  font-size: 0.81rem;
 }
