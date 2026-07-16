@@ -285,3 +285,25 @@
   margin-bottom: 14px;
   font-style: italic;
 }
+
+.deleteSection {
+  justify-content: space-between;
+}
+
+.btnExport {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: transparent;
+  border: 1px solid var(--c-border);
+  border-radius: 7px;
+  padding: 6px 10px;
+  font-size: 12.5px;
+  color: var(--c-ink);
+  cursor: pointer;
+  font-family: inherit;
+}
+
+.btnExport:hover {
+  background: var(--c-selected-bg);
+}

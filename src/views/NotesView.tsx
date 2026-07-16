@@ -1,11 +1,12 @@
 import { useState } from "react";
-import { Search, Plus, Trash2 } from "lucide-react";
+import { Search, Plus, Trash2, Download } from "lucide-react";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import { NoteTypeBadge, CompletedProjectPill } from "../components/Badges";
 import { NoteTaskCreator } from "../components/NoteTaskCreator";
 import { SLATE } from "../constants/colors";
 import { projectLabel } from "../utils/projects";
+import { downloadMarkdown } from "../utils/notesMarkdown";
 import { cx } from "../utils/cx";
 import type { AnchorHTMLAttributes } from "react";
 import type { Note, NoteType, Project, Task } from "../types";
@@ -243,6 +244,13 @@ export const NotesView = ({
             <NoteTaskCreator project={current.project} setTasks={setTasks} />
 
             <div className={styles.deleteSection}>
+              <button
+                onClick={() => downloadMarkdown(current, projects.find((p) => p.id === current.project))}
+                className={styles.btnExport}
+                title="Diese Notiz als Markdown-Datei herunterladen"
+              >
+                <Download size={13} /> Als Markdown exportieren
+              </button>
               {confirmDeleteId === current.id ? (
                 <div className={styles.confirmRow}>
                   <span className={styles.confirmText}>Notiz wirklich löschen?</span>
