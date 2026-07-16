@@ -245,6 +245,7 @@ export const NotesView = ({
 
             <div className={styles.deleteSection}>
               <button
+                type="button"
                 onClick={() => downloadMarkdown(current, projects.find((p) => p.id === current.project))}
                 className={styles.btnExport}
                 title="Diese Notiz als Markdown-Datei herunterladen"
