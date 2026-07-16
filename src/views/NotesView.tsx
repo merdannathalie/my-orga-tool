@@ -151,11 +151,10 @@ export const NotesView = ({
                 onChange={(e) => updateCurrent("title", e.target.value)}
                 className={styles.editorTitle}
               />
-              <div className={styles.modeToggle} role="tablist" aria-label="Ansichtsmodus">
+              <div className={styles.modeToggle} role="group" aria-label="Ansichtsmodus">
                 <button
                   type="button"
-                  role="tab"
-                  aria-selected={currentMode(current.id) === "edit"}
+                  aria-pressed={currentMode(current.id) === "edit"}
                   onClick={() => setMode(current.id, "edit")}
                   className={cx(
                     styles.modeToggleBtn,
@@ -166,8 +165,7 @@ export const NotesView = ({
                 </button>
                 <button
                   type="button"
-                  role="tab"
-                  aria-selected={currentMode(current.id) === "preview"}
+                  aria-pressed={currentMode(current.id) === "preview"}
                   onClick={() => setMode(current.id, "preview")}
                   className={cx(
                     styles.modeToggleBtn,
