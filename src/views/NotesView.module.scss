@@ -187,3 +187,123 @@
 .btnCancel {
   @include btn-ghost;
 }
+
+.titleRow {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.titleRow .editorTitle { margin-bottom: 0; flex: 1; }
+
+.modeToggle {
+  display: inline-flex;
+  border: 1px solid var(--c-border);
+  border-radius: 7px;
+  overflow: hidden;
+  background: var(--c-card);
+  flex-shrink: 0;
+}
+
+.modeToggleBtn {
+  border: none;
+  background: transparent;
+  color: var(--c-slate);
+  font-size: 12px;
+  font-family: inherit;
+  padding: 5px 10px;
+  cursor: pointer;
+}
+
+.modeToggleBtnActive {
+  background: var(--c-selected-bg);
+  color: var(--c-ink);
+}
+
+.markdown {
+  font-size: 13.5px;
+  color: var(--c-ink);
+  line-height: 1.55;
+  padding: 10px 12px;
+  border: 1px solid var(--c-border);
+  border-radius: 7px;
+  background: var(--c-card);
+  margin-bottom: 14px;
+
+  h1, h2, h3, h4 {
+    margin: 0.8em 0 0.4em;
+    color: var(--c-card-title);
+    line-height: 1.2;
+  }
+  h1 { font-size: 1.35em; }
+  h2 { font-size: 1.2em; }
+  h3 { font-size: 1.08em; }
+  p { margin: 0.4em 0; }
+  ul, ol { margin: 0.4em 0; padding-left: 1.4em; }
+  li { margin: 0.15em 0; }
+  a { color: var(--c-focus); text-decoration: underline; }
+  code {
+    background: var(--c-selected-bg);
+    padding: 0.05em 0.35em;
+    border-radius: 3px;
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 0.92em;
+  }
+  pre {
+    background: var(--c-selected-bg);
+    padding: 8px 10px;
+    border-radius: 5px;
+    overflow-x: auto;
+    margin: 0.5em 0;
+  }
+  pre code { background: transparent; padding: 0; }
+  blockquote {
+    border-left: 3px solid var(--c-border);
+    margin: 0.4em 0;
+    padding: 0.1em 0.8em;
+    color: var(--c-slate);
+  }
+  input[type="checkbox"] { margin-right: 4px; }
+  table {
+    border-collapse: collapse;
+    margin: 0.4em 0;
+  }
+  th, td {
+    border: 1px solid var(--c-border);
+    padding: 4px 8px;
+    text-align: left;
+  }
+}
+
+.markdownEmpty {
+  font-size: 13px;
+  color: var(--c-slate);
+  padding: 8px 12px;
+  border: 1px dashed var(--c-border);
+  border-radius: 7px;
+  margin-bottom: 14px;
+  font-style: italic;
+}
+
+.deleteSection {
+  justify-content: space-between;
+}
+
+.btnExport {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: transparent;
+  border: 1px solid var(--c-border);
+  border-radius: 7px;
+  padding: 6px 10px;
+  font-size: 12.5px;
+  color: var(--c-ink);
+  cursor: pointer;
+  font-family: inherit;
+}
+
+.btnExport:hover {
+  background: var(--c-selected-bg);
+}

@@ -1,10 +1,14 @@
 import { useState } from "react";
-import { Search, Plus, Trash2 } from "lucide-react";
+import { Search, Plus, Trash2, Download } from "lucide-react";
+import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
 import { NoteTypeBadge, CompletedProjectPill } from "../components/Badges";
 import { NoteTaskCreator } from "../components/NoteTaskCreator";
 import { SLATE } from "../constants/colors";
 import { projectLabel } from "../utils/projects";
+import { downloadMarkdown } from "../utils/notesMarkdown";
 import { cx } from "../utils/cx";
+import type { AnchorHTMLAttributes } from "react";
 import type { Note, NoteType, Project, Task } from "../types";
 import styles from "./NotesView.module.scss";
 
@@ -21,10 +25,36 @@ type Props = {
 
 const NOTE_TYPES: NoteType[] = ["Kunden-Call", "Intern", "Kick-off", "Review"];
 
+const MARKDOWN_COMPONENTS = {
+  a: ({ href, children, ...rest }: AnchorHTMLAttributes<HTMLAnchorElement>) => (
+    <a href={href} target="_blank" rel="noopener noreferrer" {...rest}>{children}</a>
+  ),
+};
+
+const MarkdownField = ({ value, empty }: { value: string; empty: string }) => {
+  if (!value.trim()) return <div className={styles.markdownEmpty}>{empty}</div>;
+  return (
+    <div className={styles.markdown}>
+      <ReactMarkdown remarkPlugins={[remarkGfm]} components={MARKDOWN_COMPONENTS}>
+        {value}
+      </ReactMarkdown>
+    </div>
+  );
+};
+
 export const NotesView = ({
   notes, setNotes, projects, activeNote, setActiveNote, noteFilter, setNoteFilter, setTasks,
 }: Props) => {
   const [confirmDeleteId, setConfirmDeleteId] = useState<number | null>(null);
+  const [noteModes, setNoteModes] = useState<Map<number, "edit" | "preview">>(new Map());
+
+  const currentMode = (id: number): "edit" | "preview" => noteModes.get(id) ?? "edit";
+  const setMode = (id: number, mode: "edit" | "preview") =>
+    setNoteModes((prev) => {
+      const next = new Map(prev);
+      next.set(id, mode);
+      return next;
+    });
 
   const filtered = notes
     .filter((n) => {
@@ -116,11 +146,37 @@ export const NotesView = ({
 
         {current && (
           <div className={styles.editor}>
-            <input
-              value={current.title}
-              onChange={(e) => updateCurrent("title", e.target.value)}
-              className={styles.editorTitle}
-            />
+            <div className={styles.titleRow}>
+              <input
+                value={current.title}
+                onChange={(e) => updateCurrent("title", e.target.value)}
+                className={styles.editorTitle}
+              />
+              <div className={styles.modeToggle} role="group" aria-label="Ansichtsmodus">
+                <button
+                  type="button"
+                  aria-pressed={currentMode(current.id) === "edit"}
+                  onClick={() => setMode(current.id, "edit")}
+                  className={cx(
+                    styles.modeToggleBtn,
+                    currentMode(current.id) === "edit" && styles.modeToggleBtnActive,
+                  )}
+                >
+                  Bearbeiten
+                </button>
+                <button
+                  type="button"
+                  aria-pressed={currentMode(current.id) === "preview"}
+                  onClick={() => setMode(current.id, "preview")}
+                  className={cx(
+                    styles.modeToggleBtn,
+                    currentMode(current.id) === "preview" && styles.modeToggleBtnActive,
+                  )}
+                >
+                  Vorschau
+                </button>
+              </div>
+            </div>
             <div className={styles.selectRow}>
               <select
                 value={current.project}
@@ -150,32 +206,52 @@ export const NotesView = ({
             />
 
             <div className={styles.label}>Protokoll</div>
-            <textarea
-              value={current.protocol}
-              onChange={(e) => updateCurrent("protocol", e.target.value)}
-              placeholder="Was wurde besprochen…"
-              className={cx(styles.textarea, styles.textareaProtocol)}
-            />
+            {currentMode(current.id) === "edit" ? (
+              <textarea
+                value={current.protocol}
+                onChange={(e) => updateCurrent("protocol", e.target.value)}
+                placeholder="Was wurde besprochen…"
+                className={cx(styles.textarea, styles.textareaProtocol)}
+              />
+            ) : (
+              <MarkdownField value={current.protocol} empty="Keine Einträge." />
+            )}
 
             <div className={styles.label}>Offene Punkte</div>
-            <textarea
-              value={current.openPoints}
-              onChange={(e) => updateCurrent("openPoints", e.target.value)}
-              placeholder="Was noch geklärt werden muss…"
-              className={cx(styles.textarea, styles.textareaOpen)}
-            />
+            {currentMode(current.id) === "edit" ? (
+              <textarea
+                value={current.openPoints}
+                onChange={(e) => updateCurrent("openPoints", e.target.value)}
+                placeholder="Was noch geklärt werden muss…"
+                className={cx(styles.textarea, styles.textareaOpen)}
+              />
+            ) : (
+              <MarkdownField value={current.openPoints} empty="Keine offenen Punkte." />
+            )}
 
             <div className={styles.label}>Next Steps</div>
-            <textarea
-              value={current.nextSteps}
-              onChange={(e) => updateCurrent("nextSteps", e.target.value)}
-              placeholder="Was als Nächstes ansteht…"
-              className={cx(styles.textarea, styles.textareaNext)}
-            />
+            {currentMode(current.id) === "edit" ? (
+              <textarea
+                value={current.nextSteps}
+                onChange={(e) => updateCurrent("nextSteps", e.target.value)}
+                placeholder="Was als Nächstes ansteht…"
+                className={cx(styles.textarea, styles.textareaNext)}
+              />
+            ) : (
+              <MarkdownField value={current.nextSteps} empty="Keine Next Steps." />
+            )}
 
             <NoteTaskCreator project={current.project} setTasks={setTasks} />
 
             <div className={styles.deleteSection}>
+              <button
+                type="button"
+                onClick={() => downloadMarkdown(current, projects.find((p) => p.id === current.project))}
+                className={styles.btnExport}
+                title="Diese Notiz als Markdown-Datei herunterladen"
+              >
+                <Download size={13} /> Als Markdown exportieren
+              </button>
               {confirmDeleteId === current.id ? (
                 <div className={styles.confirmRow}>
                   <span className={styles.confirmText}>Notiz wirklich löschen?</span>
