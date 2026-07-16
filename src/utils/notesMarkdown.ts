@@ -38,7 +38,7 @@ export const noteToMarkdown = (note: Note, project: Project | undefined): string
   lines.push(`# ${note.title || "Notiz"}`);
   lines.push("");
 
-  const metaParts = [note.type];
+  const metaParts: string[] = [note.type];
   if (project?.name) metaParts.push(project.name);
   metaParts.push(note.date);
   lines.push(`_${metaParts.join(" · ")}_`);
