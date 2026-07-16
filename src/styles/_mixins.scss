@@ -15,14 +15,14 @@
 
 @mixin page-h1 {
   font-family: "Atkinson Hyperlegible", sans-serif;
-  font-size: 24px;
+  font-size: 1.5rem;
   font-weight: 600;
   margin: 0 0 20px;
 }
 
 @mixin section-h2 {
   font-family: "Atkinson Hyperlegible", sans-serif;
-  font-size: 17px;
+  font-size: 1.0625rem;
   font-weight: 600;
   color: var(--c-ink);
   margin: 0;
@@ -34,7 +34,7 @@
   border: 1px solid var(--c-border);
   border-radius: 6px;
   padding: 7px 9px;
-  font-size: 13px;
+  font-size: 0.8125rem;
   box-sizing: border-box;
   font-family: inherit;
 }
@@ -51,7 +51,7 @@
   border: 1px solid var(--c-border);
   border-radius: 6px;
   padding: 4px 8px;
-  font-size: 14px;
+  font-size: 0.875rem;
   box-sizing: border-box;
   font-family: inherit;
 }
@@ -62,7 +62,7 @@
   color: var(--c-on-accent);
   border-radius: 6px;
   padding: 7px 14px;
-  font-size: 12.5px;
+  font-size: 0.7812rem;
   cursor: pointer;
   font-family: inherit;
 }
@@ -78,7 +78,7 @@
   color: var(--c-slate);
   border-radius: 6px;
   padding: 7px 14px;
-  font-size: 12.5px;
+  font-size: 0.7812rem;
   cursor: pointer;
   font-family: inherit;
 }
@@ -158,13 +158,13 @@
 }
 
 @mixin form-label {
-  font-size: 12px;
+  font-size: 0.75rem;
   color: var(--c-slate);
   margin-bottom: 4px;
 }
 
 @mixin muted {
-  font-size: 12.5px;
+  font-size: 0.7812rem;
   color: var(--c-slate);
 }
 

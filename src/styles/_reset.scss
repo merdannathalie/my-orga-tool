@@ -1,6 +1,13 @@
 // Basis-Reset innerhalb der App-Shell. Läuft absichtlich nicht global,
 // damit Login-Screen o. ä. außerhalb der Shell unangetastet bleiben.
 
+// Zentraler Schrift-Regler: alle Komponenten-`font-size` sind in `rem` und
+// beziehen sich auf diesen Root-Wert. Ändere ihn, um die gesamte App
+// gleichzeitig zu skalieren.
+:root {
+  font-size: 18px;
+}
+
 .aorg-shell {
   box-sizing: border-box;
 

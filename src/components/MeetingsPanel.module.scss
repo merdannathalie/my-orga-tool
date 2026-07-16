@@ -24,7 +24,7 @@
   background: transparent;
   border-radius: 6px;
   padding: 5px 9px;
-  font-size: 14px;
+  font-size: 0.875rem;
   color: var(--c-slate);
   cursor: pointer;
   font-family: inherit;
@@ -42,7 +42,7 @@
   @include input-base;
   background: var(--c-card);
   width: 100%;
-  font-size: 15px;
+  font-size: 0.9375rem;
   margin-bottom: 8px;
 }
 
@@ -56,7 +56,7 @@
 .date {
   @include input-base;
   background: var(--c-card);
-  font-size: 15px;
+  font-size: 0.9375rem;
   @include mono;
   width: 150px;
 }
@@ -64,7 +64,7 @@
 .time {
   @include input-base;
   background: var(--c-card);
-  font-size: 15px;
+  font-size: 0.9375rem;
   @include mono;
   width: 100px;
 }
@@ -74,20 +74,20 @@
   background: var(--c-card);
   flex: 1;
   min-width: 140px;
-  font-size: 15px;
+  font-size: 0.9375rem;
 }
 
 .link {
   @include input-base;
   background: var(--c-card);
   width: 100%;
-  font-size: 15px;
+  font-size: 0.9375rem;
   margin-bottom: 8px;
 }
 
 .btnSave {
   @include btn-primary;
-  font-size: 15px;
+  font-size: 0.9375rem;
 }
 
 .dayNav {
@@ -120,7 +120,7 @@
   border: none;
   background: transparent;
   color: var(--c-focus);
-  font-size: 12.5px;
+  font-size: 0.7812rem;
   cursor: pointer;
   font-family: inherit;
 }
@@ -136,7 +136,7 @@
 .laneHeader {
   display: flex;
   justify-content: space-between;
-  font-size: 15px;
+  font-size: 0.9375rem;
   font-weight: 500;
   color: var(--c-slate);
   margin-bottom: 8px;
@@ -173,26 +173,26 @@
 }
 
 .cardTime {
-  font-size: 15.5px;
+  font-size: 0.9688rem;
   font-weight: 500;
   color: var(--c-focus);
   @include mono;
 }
 
 .cardTitle {
-  font-size: 15px;
+  font-size: 0.9375rem;
   font-weight: 500;
   margin-top: 2px;
 }
 
 .cardParticipants {
-  font-size: 13px;
+  font-size: 0.8125rem;
   color: var(--c-slate);
   margin-top: 3px;
 }
 
 .cardLink {
-  font-size: 13px;
+  font-size: 0.8125rem;
   color: var(--c-focus);
   display: flex;
   align-items: center;
@@ -210,7 +210,7 @@
 .iconBtn { @include btn-icon; }
 
 .empty {
-  font-size: 13px;
+  font-size: 0.8125rem;
   color: var(--c-slate);
   padding: 6px 2px;
 }

@@ -29,7 +29,7 @@
   background: transparent;
   border-radius: 6px;
   padding: 5px 9px;
-  font-size: 14px;
+  font-size: 0.875rem;
   color: var(--c-slate);
   cursor: pointer;
   font-family: inherit;
@@ -44,7 +44,7 @@
   color: var(--c-slate);
   border-radius: 6px;
   padding: 5px 9px;
-  font-size: 14px;
+  font-size: 0.875rem;
   cursor: default;
   font-family: inherit;
 }
@@ -67,7 +67,7 @@
   @include input-base;
   background: var(--c-card);
   width: 100%;
-  font-size: 16px;
+  font-size: 1rem;
   margin-bottom: 8px;
 }
 
@@ -76,7 +76,7 @@
   background: var(--c-card);
   width: 100%;
   min-height: 56px;
-  font-size: 16px;
+  font-size: 1rem;
   margin-bottom: 8px;
 }
 
@@ -91,26 +91,26 @@
   background: var(--c-card);
   flex: 1;
   min-width: 140px;
-  font-size: 16px;
+  font-size: 1rem;
 }
 
 .prioritySelect {
   @include select-base;
   background: var(--c-card);
-  font-size: 16px;
+  font-size: 1rem;
 }
 
 .date {
   @include input-base;
   background: var(--c-card);
-  font-size: 16px;
+  font-size: 1rem;
   @include mono;
   width: 160px;
 }
 
 .btnCreate {
   @include btn-primary;
-  font-size: 15px;
+  font-size: 0.9375rem;
 }
 
 .lane {
@@ -124,7 +124,7 @@
 .laneHeader {
   display: flex;
   justify-content: space-between;
-  font-size: 15px;
+  font-size: 0.9375rem;
   font-weight: 500;
   color: var(--c-slate);
   margin-bottom: 8px;
@@ -161,7 +161,7 @@
 }
 
 .cardTitle {
-  font-size: 15.5px;
+  font-size: 0.9688rem;
   line-height: 1.35;
 }
 
@@ -174,12 +174,12 @@
 }
 
 .cardProject {
-  font-size: 13.5px;
+  font-size: 0.8438rem;
   color: var(--c-slate);
 }
 
 .empty {
-  font-size: 14px;
+  font-size: 0.875rem;
   color: var(--c-slate);
   padding: 6px 2px;
 }

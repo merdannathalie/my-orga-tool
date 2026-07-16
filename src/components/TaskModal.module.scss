@@ -13,7 +13,7 @@
 
 .viewTitle {
   font-family: "Atkinson Hyperlegible", sans-serif;
-  font-size: 18px;
+  font-size: 1.125rem;
   font-weight: 600;
   margin: 0;
   flex: 1;
@@ -30,7 +30,7 @@
 }
 
 .metaText {
-  font-size: 12px;
+  font-size: 0.75rem;
   color: var(--c-slate);
 }
 
@@ -40,7 +40,7 @@
 }
 
 .description {
-  font-size: 13.5px;
+  font-size: 0.8438rem;
   line-height: 1.55;
   white-space: pre-wrap;
   margin: 0 0 18px;
@@ -76,7 +76,7 @@
 }
 
 .confirmLabel {
-  font-size: 12.5px;
+  font-size: 0.7812rem;
   color: var(--c-fail);
 }
 
@@ -91,7 +91,7 @@
 .titleInput {
   @include input-base;
   font-family: "Atkinson Hyperlegible", sans-serif;
-  font-size: 17px;
+  font-size: 1.0625rem;
   font-weight: 600;
   width: 100%;
   margin-bottom: 10px;
