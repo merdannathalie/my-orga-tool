@@ -16,7 +16,7 @@
 .searchInput {
   border: none;
   outline: none;
-  font-size: 13px;
+  font-size: 0.8125rem;
   flex: 1;
   background: transparent;
   color: var(--c-ink);
@@ -32,7 +32,7 @@
   background: transparent;
   border-radius: 7px;
   padding: 7px 10px;
-  font-size: 12.5px;
+  font-size: 0.7812rem;
   color: var(--c-slate);
   cursor: pointer;
   margin-bottom: 10px;
@@ -66,14 +66,14 @@
 }
 
 .listTitle {
-  font-size: 13px;
+  font-size: 0.8125rem;
   font-weight: 500;
   margin-bottom: 3px;
   color: var(--c-card-title);
 }
 
 .listMeta {
-  font-size: 12.5px;
+  font-size: 0.7812rem;
   color: var(--c-slate);
   margin-bottom: 5px;
   display: flex;
@@ -87,7 +87,7 @@
 }
 
 .empty {
-  font-size: 12.5px;
+  font-size: 0.7812rem;
   color: var(--c-slate);
   padding: 8px 2px;
 }
@@ -103,7 +103,7 @@
 .editorTitle {
   @include input-base;
   font-family: "Atkinson Hyperlegible", sans-serif;
-  font-size: 18px;
+  font-size: 1.125rem;
   font-weight: 600;
   border: none;
   outline: none;
@@ -126,7 +126,7 @@
 }
 
 .dateMono {
-  font-size: 12px;
+  font-size: 0.75rem;
   color: var(--c-slate);
   @include mono;
 }
@@ -145,7 +145,7 @@
   width: 100%;
   padding: 10px 12px;
   border-radius: 7px;
-  font-size: 13.5px;
+  font-size: 0.8438rem;
   font-family: "Atkinson Hyperlegible", sans-serif;
 }
 
@@ -169,7 +169,7 @@
 }
 
 .confirmText {
-  font-size: 12.5px;
+  font-size: 0.7812rem;
   color: var(--c-fail);
 }
 
@@ -210,7 +210,7 @@
   border: none;
   background: transparent;
   color: var(--c-slate);
-  font-size: 12px;
+  font-size: 0.75rem;
   font-family: inherit;
   padding: 5px 10px;
   cursor: pointer;
@@ -222,7 +222,7 @@
 }
 
 .markdown {
-  font-size: 13.5px;
+  font-size: 0.8438rem;
   color: var(--c-ink);
   line-height: 1.55;
   padding: 10px 12px;
@@ -277,7 +277,7 @@
 }
 
 .markdownEmpty {
-  font-size: 13px;
+  font-size: 0.8125rem;
   color: var(--c-slate);
   padding: 8px 12px;
   border: 1px dashed var(--c-border);
@@ -298,7 +298,7 @@
   border: 1px solid var(--c-border);
   border-radius: 7px;
   padding: 6px 10px;
-  font-size: 12.5px;
+  font-size: 0.7812rem;
   color: var(--c-ink);
   cursor: pointer;
   font-family: inherit;
