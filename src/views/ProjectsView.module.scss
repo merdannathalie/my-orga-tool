@@ -5,19 +5,9 @@
 }
 
 .newProjectBtn {
-  display: flex;
-  align-items: center;
-  gap: 6px;
+  @include btn-add;
   width: 100%;
-  border: 1px dashed var(--c-slate);
-  background: transparent;
-  border-radius: 7px;
-  padding: 7px 10px;
-  font-size: 0.78rem;
-  color: var(--c-slate);
-  cursor: pointer;
   margin-bottom: 10px;
-  font-family: inherit;
 }
 
 .list {
@@ -129,7 +119,7 @@
 }
 
 .deadlineLabel {
-  font-size: 0.75rem;
+  font-size: 0.9rem;
   color: var(--c-slate);
 }
 
@@ -143,6 +133,7 @@
 
 .descLabel {
   @include form-label;
+  font-size: 0.9rem;
 }
 
 .descTextarea {

@@ -84,7 +84,7 @@ export const MeetingsPanel = ({ meetings, setMeetings }: Props) => {
       <div className={styles.header}>
         <h2 className={styles.title}>Anstehende Meetings</h2>
         <button onClick={() => setShowForm((s) => !s)} className={styles.btnToggle}>
-          {showForm ? <X size={12} /> : <Plus size={12} />} Meeting
+          {showForm ? <X size={14} /> : <Plus size={14} />} Meeting
         </button>
       </div>
 

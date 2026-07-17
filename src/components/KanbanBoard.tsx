@@ -79,15 +79,11 @@ export const KanbanBoard = ({ tasks, setTasks, projects }: Props) => {
       <div className={styles.header}>
         <h2 className={styles.title}>To-do-Board</h2>
         <div className={styles.headerActions}>
-          <button onClick={() => setShowForm((s) => !s)} className={styles.btnToggle}>
-            {showForm ? <X size={12} /> : <Plus size={12} />} Aufgabe
-          </button>
           <button
-            onClick={clearDone}
-            disabled={doneCount === 0}
-            className={cx(styles.btnClearDone, doneCount > 0 && styles.btnClearDoneActive)}
+            onClick={() => setShowForm((s) => !s)}
+            className={styles.btnToggle}
           >
-            <Trash2 size={12} /> Erledigte löschen ({doneCount})
+            {showForm ? <X size={14} /> : <Plus size={14} />} Aufgabe
           </button>
         </div>
       </div>
@@ -102,23 +98,36 @@ export const KanbanBoard = ({ tasks, setTasks, projects }: Props) => {
           />
           <textarea
             value={draft.description}
-            onChange={(e) => setDraft((d) => ({ ...d, description: e.target.value }))}
+            onChange={(e) =>
+              setDraft((d) => ({ ...d, description: e.target.value }))
+            }
             placeholder="Beschreibung (optional)"
             className={styles.formTextarea}
           />
           <div className={styles.formRow}>
             <select
               value={draft.project}
-              onChange={(e) => setDraft((d) => ({ ...d, project: Number(e.target.value) }))}
+              onChange={(e) =>
+                setDraft((d) => ({ ...d, project: Number(e.target.value) }))
+              }
               className={styles.projectSelect}
             >
-              {projects.filter((p) => !p.completed).map((p) => (
-                <option key={p.id} value={p.id}>{p.name}</option>
-              ))}
+              {projects
+                .filter((p) => !p.completed)
+                .map((p) => (
+                  <option key={p.id} value={p.id}>
+                    {p.name}
+                  </option>
+                ))}
             </select>
             <select
               value={draft.priority}
-              onChange={(e) => setDraft((d) => ({ ...d, priority: e.target.value as Priority }))}
+              onChange={(e) =>
+                setDraft((d) => ({
+                  ...d,
+                  priority: e.target.value as Priority,
+                }))
+              }
               className={styles.prioritySelect}
             >
               <option value="low">low</option>
@@ -130,7 +139,9 @@ export const KanbanBoard = ({ tasks, setTasks, projects }: Props) => {
               onChange={(v) => setDraft((d) => ({ ...d, due: v }))}
               className={styles.date}
             />
-            <button onClick={addTask} className={styles.btnCreate}>Anlegen</button>
+            <button onClick={addTask} className={styles.btnCreate}>
+              Anlegen
+            </button>
           </div>
         </div>
       )}
@@ -142,7 +153,10 @@ export const KanbanBoard = ({ tasks, setTasks, projects }: Props) => {
           return (
             <div
               key={col.key}
-              onDragOver={(e) => { e.preventDefault(); setOverCol(col.key); }}
+              onDragOver={(e) => {
+                e.preventDefault();
+                setOverCol(col.key);
+              }}
               onDragLeave={() => setOverCol((c) => (c === col.key ? null : c))}
               onDrop={(e) => {
                 e.preventDefault();
@@ -166,18 +180,32 @@ export const KanbanBoard = ({ tasks, setTasks, projects }: Props) => {
                       onDragStart={() => setDragId(t.id)}
                       onDragEnd={() => setDragId(null)}
                       onClick={() => setSelectedId(t.id)}
-                      className={cx(styles.card, dragId === t.id && styles.cardDragging)}
+                      className={cx(
+                        styles.card,
+                        dragId === t.id && styles.cardDragging,
+                      )}
                     >
                       <div className={styles.cardBody}>
-                        <GripVertical size={13} color={SLATE} className={styles.grip} />
+                        <GripVertical
+                          size={14}
+                          color={SLATE}
+                          className={styles.grip}
+                        />
                         <div className={styles.cardMain}>
-                          <div className={styles.cardTitle}>{t.title}</div>
+                          <div className={styles.cardTitle}>
+                            <span>{t.title}</span>
+                            <div className={styles.cardProjectRow}>
+                              <span className={styles.cardProject}>
+                                {proj?.name}
+                              </span>
+                              <CompletedProjectPill project={proj} />
+                            </div>
+                          </div>
                           <div className={styles.cardMeta}>
-                            <PriorityPill priority={t.priority} />
                             <span className={styles.cardProject}>
-                              {proj?.name}{t.due ? ` · ${t.due}` : ""}
+                              {t.due ? `${t.due}` : ""}
                             </span>
-                            <CompletedProjectPill project={proj} />
+                            <PriorityPill priority={t.priority} />
                           </div>
                         </div>
                       </div>
@@ -186,6 +214,15 @@ export const KanbanBoard = ({ tasks, setTasks, projects }: Props) => {
                 })}
                 {items.length === 0 && <div className={styles.empty}>—</div>}
               </div>
+              {col.key === "done" && doneCount > 0 && (
+                <button
+                  type="button"
+                  onClick={clearDone}
+                  className={styles.clearDoneFooter}
+                >
+                  <Trash2 size={13} /> Erledigte löschen ({doneCount})
+                </button>
+              )}
             </div>
           );
         })}

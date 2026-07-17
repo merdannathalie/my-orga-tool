@@ -6,11 +6,15 @@
   align-items: baseline;
   flex-wrap: wrap;
   gap: 8px;
-  margin-bottom: 20px;
+  margin-bottom: 24px;
 }
 
 .greeting {
-  @include page-h1;
+  font-family: "Sarina", "Atkinson Hyperlegible", cursive;
+  font-weight: 400;
+  font-size: 2.1rem;
+  line-height: 1.1;
+  color: var(--c-ink);
   margin: 0;
 }
 

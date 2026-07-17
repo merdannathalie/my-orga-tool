@@ -8,8 +8,8 @@
 @media (max-width: 720px) {
   .mobileNav {
     display: block;
-    background: linear-gradient(165deg, #5a3468 0%, #2e2438 65%);
-    color: #c9c2d3;
+    background: #6C63A2;
+    color: #EDE9F5;
     border-bottom: 1px solid rgba(0, 0, 0, 0.2);
   }
 }
@@ -65,17 +65,21 @@
   cursor: pointer;
   font-size: 0.88rem;
   background: transparent;
-  color: #c9c2d3;
+  color: #EDE9F5;
   font-family: inherit;
 
   &:hover {
-    background: rgba(255, 255, 255, 0.05);
+    background: rgba(255, 255, 255, 0.10);
   }
 }
 
 .navBtnActive {
-  background: rgba(212, 138, 208, 0.3);
-  color: #ffffff;
+  background: #FFF0AD;
+  color: #241F26;
+
+  &:hover {
+    background: #FFF0AD;
+  }
 }
 
 .signOut {
@@ -91,9 +95,9 @@
   cursor: pointer;
   font-size: 0.88rem;
   background: transparent;
-  color: #c9c2d3;
+  color: #EDE9F5;
   font-family: inherit;
-  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  border-top: 1px solid rgba(255, 255, 255, 0.10);
   border-radius: 0;
   padding-top: 12px;
 

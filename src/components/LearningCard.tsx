@@ -31,14 +31,14 @@ export const LearningCard = ({ item, onEdit, onDelete, dragId, setDragId }: Prop
           aria-label="Bearbeiten"
           className={styles.iconBtn}
         >
-          <Pencil size={12} />
+          <Pencil size={14} />
         </button>
         <button
           onClick={(e) => { e.stopPropagation(); onDelete(item.id); }}
           aria-label="Löschen"
           className={styles.iconBtn}
         >
-          <Trash2 size={12} />
+          <Trash2 size={14} />
         </button>
       </div>
     </div>

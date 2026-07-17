@@ -105,20 +105,23 @@ export const NotesView = ({
     <div>
       <h1 className={cx(styles.h1, "aorg-h1")}>Notizen & Meeting-Protokolle</h1>
 
+      <div className={styles.toolbar}>
+        <div className={styles.searchBar}>
+          <Search size={14} color={SLATE} />
+          <input
+            value={noteFilter}
+            onChange={(e) => setNoteFilter(e.target.value)}
+            placeholder="Notizen durchsuchen…"
+            className={styles.searchInput}
+          />
+        </div>
+        <button onClick={addNote} className={styles.newBtn}>
+          <Plus size={13} /> Neue Notiz
+        </button>
+      </div>
+
       <div className="aorg-notes-layout">
         <div className="aorg-notes-list">
-          <div className={styles.searchBar}>
-            <Search size={14} color={SLATE} />
-            <input
-              value={noteFilter}
-              onChange={(e) => setNoteFilter(e.target.value)}
-              placeholder="Notizen durchsuchen…"
-              className={styles.searchInput}
-            />
-          </div>
-          <button onClick={addNote} className={styles.newBtn}>
-            <Plus size={13} /> Neue Notiz
-          </button>
           <div className={styles.list}>
             {filtered.map((n) => {
               const proj = projects.find((p) => p.id === n.project);

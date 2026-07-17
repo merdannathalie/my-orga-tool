@@ -17,17 +17,7 @@
 .title { @include section-h2; }
 
 .btnToggle {
-  display: flex;
-  align-items: center;
-  gap: 5px;
-  border: 1px solid var(--c-slate);
-  background: transparent;
-  border-radius: 6px;
-  padding: 5px 9px;
-  font-size: 0.88rem;
-  color: var(--c-slate);
-  cursor: pointer;
-  font-family: inherit;
+  @include btn-add;
 }
 
 .form {
@@ -193,7 +183,7 @@
 
 .cardLink {
   font-size: 0.81rem;
-  color: var(--c-focus);
+  color: var(--c-accent);
   display: flex;
   align-items: center;
   gap: 4px;

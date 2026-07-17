@@ -4,19 +4,20 @@
 
 @mixin card {
   background: var(--c-card);
-  border: 1px solid var(--c-border);
+  border: 1.5px solid var(--c-border);
   border-radius: 10px;
 }
 
 @mixin panel-padded {
   @include card;
-  padding: 12px 16px;
+  padding: 20px 20px;
 }
 
 @mixin page-h1 {
-  font-family: "Atkinson Hyperlegible", sans-serif;
-  font-size: 1.5rem;
-  font-weight: 600;
+  font-family: "Sarina", "Atkinson Hyperlegible", cursive;
+  font-size: 2.1rem;
+  font-weight: 400;
+  line-height: 1.1;
   margin: 0 0 20px;
 }
 
@@ -58,12 +59,29 @@
 
 @mixin btn-primary {
   border: none;
-  background: var(--c-focus);
-  color: var(--c-on-accent);
+  background: var(--c-accent);
+  color: #FFFFFF;
   border-radius: 6px;
   padding: 7px 14px;
   font-size: 0.78rem;
   cursor: pointer;
+  font-family: inherit;
+}
+
+// Dashed Terracotta-Button für "Neu"/"Hinzufügen"-Aktionen (Notizen, Projekte,
+// Ressourcen, Learning). Einheitlicher Look über alle Add-Buttons.
+@mixin btn-add {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  border: 1px dashed var(--c-accent);
+  background: transparent;
+  border-radius: 7px;
+  padding: 7px 12px;
+  font-size: 0.78rem;
+  color: var(--c-accent);
+  cursor: pointer;
+  white-space: nowrap;
   font-family: inherit;
 }
 
@@ -85,8 +103,8 @@
 
 @mixin btn-ghost-focus {
   @include btn-ghost;
-  border-color: var(--c-focus);
-  color: var(--c-focus);
+  border-color: var(--c-accent);
+  color: var(--c-accent);
 }
 
 @mixin btn-ghost-danger {
@@ -144,15 +162,15 @@
 }
 
 @mixin kanban-lane-over {
-  background: var(--c-selected-bg);
-  border: 1px dashed var(--c-focus);
+  background: rgba(228, 105, 63, 0.12);
+  border: 1px solid var(--c-accent);
 }
 
 @mixin kanban-card {
   background: var(--c-card);
   border: 1px solid var(--c-border);
   border-radius: 7px;
-  padding: 8px 9px;
+  padding: 14px;
   cursor: pointer;
   font-family: inherit;
 }

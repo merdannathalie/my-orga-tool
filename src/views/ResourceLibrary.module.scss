@@ -31,18 +31,7 @@
 }
 
 .btnToggle {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  border: 1px dashed var(--c-slate);
-  background: transparent;
-  border-radius: 7px;
-  padding: 7px 12px;
-  font-size: 0.78rem;
-  color: var(--c-slate);
-  cursor: pointer;
-  white-space: nowrap;
-  font-family: inherit;
+  @include btn-add;
 }
 
 .form {
@@ -120,8 +109,8 @@
 }
 
 .itemLink {
-  font-size: 0.72rem;
-  color: var(--c-focus);
+  font-size: 0.85rem;
+  color: var(--c-accent);
   display: flex;
   align-items: center;
   gap: 4px;
@@ -137,7 +126,6 @@
   min-height: 44px;
   padding: 7px 9px;
   font-size: 0.78rem;
-  background: var(--c-note-bg);
 }
 
 .empty {

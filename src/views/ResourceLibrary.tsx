@@ -103,7 +103,7 @@ export const ResourceLibrary = ({ resources, setResources }: Props) => {
                 </div>
                 {r.url && (
                   <a href={r.url} target="_blank" rel="noreferrer" className={styles.itemLink}>
-                    <Link2 size={11} /> {r.url}
+                    <Link2 size={16} /> {r.url}
                   </a>
                 )}
               </div>
@@ -112,7 +112,7 @@ export const ResourceLibrary = ({ resources, setResources }: Props) => {
                 aria-label="Ressource löschen"
                 className={styles.iconBtn}
               >
-                <Trash2 size={14} />
+                <Trash2 size={16} />
               </button>
             </div>
             <textarea

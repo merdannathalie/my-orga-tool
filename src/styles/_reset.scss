@@ -24,7 +24,7 @@
   input:focus,
   textarea:focus,
   select:focus {
-    outline: 2px solid #D9A9E0;
+    outline: 2px solid var(--c-focus);
     outline-offset: 1px;
   }
 }

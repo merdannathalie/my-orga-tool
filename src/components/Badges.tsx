@@ -6,7 +6,7 @@ import type { NoteType, Priority, Project } from "../types";
 type CompletedProjectPillProps = { project: Project | undefined };
 export const CompletedProjectPill = ({ project }: CompletedProjectPillProps) => {
   if (!project?.completed) return null;
-  return <Pill color={SLATE}>Projekt abgeschlossen</Pill>;
+  return <Pill color={SLATE}>Abgeschlossen</Pill>;
 };
 
 type PriorityPillProps = { priority: Priority | undefined };

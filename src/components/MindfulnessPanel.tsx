@@ -16,7 +16,7 @@ export const MindfulnessPanel = ({ gratitude, setGratitude, dayNotes, setDayNote
           <div className={styles.heading}>Wofür bist du heute dankbar?</div>
           {[0, 1, 2].map((i) => (
             <div key={i} className={styles.gratitudeRow}>
-              <span className={styles.emoji}>🧡</span>
+              <span className={styles.emoji}>✨</span>
               <input
                 value={gratitude[i] || ""}
                 onChange={(e) =>

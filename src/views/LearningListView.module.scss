@@ -32,18 +32,7 @@
 }
 
 .btnToggle {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  border: 1px dashed var(--c-slate);
-  background: transparent;
-  border-radius: 7px;
-  padding: 7px 12px;
-  font-size: 0.78rem;
-  color: var(--c-slate);
-  cursor: pointer;
-  white-space: nowrap;
-  font-family: inherit;
+  @include btn-add;
 }
 
 .form {

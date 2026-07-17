@@ -18,8 +18,8 @@ export const ThemeToggle = ({ theme, setTheme }: Props) => {
       aria-checked={!isDark}
       className={styles.toggle}
     >
-      <Sun size={13} className={styles.iconSun} color={isDark ? "#7A7480" : "#F2C94C"} />
-      <Moon size={12} className={styles.iconMoon} color={isDark ? "#D9A9E0" : "#7A7480"} />
+      <Sun size={13} className={styles.iconSun} />
+      <Moon size={12} className={styles.iconMoon} />
       <span className={cx(styles.thumb, isDark && styles.thumbRight)} />
     </button>
   );

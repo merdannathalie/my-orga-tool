@@ -13,7 +13,7 @@
 }
 
 .toggleActive {
-  border-color: var(--c-focus);
-  background: var(--c-selected-bg);
-  color: var(--c-focus);
+  border-color: var(--c-accent);
+  background: rgba(228, 105, 63, 0.12);
+  color: var(--c-accent);
 }

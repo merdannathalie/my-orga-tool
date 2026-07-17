@@ -271,7 +271,7 @@ export const AccessOrg = ({ uid, onSignOut }: Props) => {
                 aria-label={sidebarCollapsed ? label : undefined}
                 title={sidebarCollapsed ? label : undefined}
               >
-                <Icon size={16} strokeWidth={1.75} style={{ flexShrink: 0 }} />
+                <Icon size={20} strokeWidth={1.75} style={{ flexShrink: 0 }} />
                 <span className={styles.navLabel}>{label}</span>
               </button>
             );
