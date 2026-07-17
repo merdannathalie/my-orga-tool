@@ -4,9 +4,9 @@ import { Plus, ChevronDown, ChevronRight } from "lucide-react";
 import { Pill } from "../components/Pill";
 import { CompletedProjectPill } from "../components/Badges";
 import { AuditItemModal } from "../components/AuditItemModal";
-import { FAIL, FOCUS } from "../constants/colors";
+import { FOCUS } from "../constants/colors";
 import { PRINCIPLES } from "../constants/wcag";
-import { auditStatusColor } from "../utils/audit";
+import { auditStatusColor, severityColor, severityLabel } from "../utils/audit";
 import { cx } from "../utils/cx";
 import type { AuditItem, Project } from "../types";
 import styles from "./AuditTracker.module.scss";
@@ -39,7 +39,9 @@ export const AuditTracker = ({
         const items = audit.filter((a) => a.project === p.id);
         const isOpen = expanded === p.id;
         const doneCount = items.filter((i) => i.status === "erfüllt").length;
-        const criticalOpen = items.filter((i) => i.severity === "kritisch" && i.status !== "erfüllt").length;
+        const severeOpen = items.filter(
+          (i) => (i.severity === "kritisch" || i.severity === "schwerwiegend") && i.status !== "erfüllt",
+        ).length;
 
         return (
           <div key={p.id} className={styles.projectBlock}>
@@ -49,7 +51,7 @@ export const AuditTracker = ({
               <CompletedProjectPill project={p} />
               {items.length > 0 ? (
                 <span className={styles.projectMeta}>
-                  ({doneCount}/{items.length} erfüllt{criticalOpen > 0 ? ` · ${criticalOpen} kritisch offen` : ""})
+                  ({doneCount}/{items.length} erfüllt{severeOpen > 0 ? ` · ${severeOpen} schwer offen` : ""})
                 </span>
               ) : (
                 <span className={styles.projectMeta}>(kein Audit gestartet)</span>
@@ -96,7 +98,9 @@ export const AuditTracker = ({
                                   <Pill color={FOCUS}>{a.code}</Pill>
                                   <span className={styles.itemName}>{a.name}</span>
                                   <span className={styles.itemLevel}>{a.level}</span>
-                                  {a.severity === "kritisch" && a.status !== "erfüllt" && <Pill color={FAIL}>kritisch</Pill>}
+                                  {a.severity && a.status !== "erfüllt" && (
+                                    <Pill color={severityColor(a.severity)}>{severityLabel(a.severity)}</Pill>
+                                  )}
                                   <span
                                     className={styles.itemStatus}
                                     style={{ ["--item-status-color" as string]: auditStatusColor(a.status) } as CSSProperties}
