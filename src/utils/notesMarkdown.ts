@@ -1,18 +1,5 @@
+import { slugify } from "./slug";
 import type { Note, Project } from "../types";
-
-const UMLAUT_MAP: Record<string, string> = {
-  ä: "ae", ö: "oe", ü: "ue", ß: "ss",
-  Ä: "ae", Ö: "oe", Ü: "ue",
-};
-
-export const slugify = (input: string): string => {
-  const replaced = input.replace(/[äöüßÄÖÜ]/g, (c) => UMLAUT_MAP[c] ?? c);
-  const slug = replaced
-    .toLowerCase()
-    .replace(/[^a-z0-9]+/g, "-")
-    .replace(/^-+|-+$/g, "");
-  return slug || "notiz";
-};
 
 const toIsoDate = (deDate: string): string => {
   const parts = deDate.split(".");

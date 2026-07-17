@@ -1,12 +1,13 @@
 import { useState } from "react";
 import type { CSSProperties } from "react";
-import { Plus, ChevronDown, ChevronRight } from "lucide-react";
+import { Plus, ChevronDown, ChevronRight, Download } from "lucide-react";
 import { Pill } from "../components/Pill";
 import { CompletedProjectPill } from "../components/Badges";
 import { AuditItemModal } from "../components/AuditItemModal";
 import { FOCUS } from "../constants/colors";
 import { PRINCIPLES } from "../constants/wcag";
 import { auditStatusColor, severityColor, severityLabel } from "../utils/audit";
+import { downloadAuditCsv } from "../utils/auditCsv";
 import { cx } from "../utils/cx";
 import type { AuditItem, Project } from "../types";
 import styles from "./AuditTracker.module.scss";
@@ -50,9 +51,27 @@ export const AuditTracker = ({
               {p.name}
               <CompletedProjectPill project={p} />
               {items.length > 0 ? (
-                <span className={styles.projectMeta}>
-                  ({doneCount}/{items.length} erfüllt{severeOpen > 0 ? ` · ${severeOpen} schwer offen` : ""})
-                </span>
+                <>
+                  <span className={styles.projectMeta}>
+                    ({doneCount}/{items.length} erfüllt{severeOpen > 0 ? ` · ${severeOpen} schwer offen` : ""})
+                  </span>
+                  <span
+                    role="button"
+                    tabIndex={0}
+                    onClick={(e) => { e.stopPropagation(); downloadAuditCsv(items, p); }}
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter" || e.key === " ") {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        downloadAuditCsv(items, p);
+                      }
+                    }}
+                    className={styles.btnCsv}
+                    title="Diesen Audit als CSV exportieren"
+                  >
+                    <Download size={13} /> CSV-Export
+                  </span>
+                </>
               ) : (
                 <span className={styles.projectMeta}>(kein Audit gestartet)</span>
               )}

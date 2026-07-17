@@ -116,3 +116,20 @@
   min-width: 80px;
   text-align: right;
 }
+
+.btnCsv {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  margin-left: auto;
+  background: transparent;
+  border: 1px solid var(--c-border);
+  border-radius: 6px;
+  padding: 4px 9px;
+  font-size: 0.78rem;
+  color: var(--c-ink);
+  cursor: pointer;
+  user-select: none;
+}
+.btnCsv:hover { background: var(--c-selected-bg); }
+.btnCsv:focus-visible { outline: 2px solid var(--c-focus); outline-offset: 1px; }
