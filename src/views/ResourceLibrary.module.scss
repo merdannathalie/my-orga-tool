@@ -18,16 +18,22 @@
   border: 1px solid var(--c-border);
   border-radius: 7px;
   padding: 6px 10px;
+
+  &:focus-within {
+    outline: 2px solid var(--c-focus);
+    outline-offset: 1px;
+  }
 }
 
 .searchInput {
   border: none;
-  outline: none;
-  font-size: 0.81rem;
+  font-size: 0.9rem;
   flex: 1;
   background: transparent;
   color: var(--c-ink);
   font-family: inherit;
+
+  &:focus { outline: none; }
 }
 
 .btnToggle {

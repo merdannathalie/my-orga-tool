@@ -4,14 +4,16 @@
 
 .sortBar {
   display: flex;
+  flex-direction: row;
   align-items: center;
+  justify-content: flex-end;
   gap: 8px;
   margin-bottom: 14px;
   flex-wrap: wrap;
 }
 
 .sortLabel {
-  font-size: 0.75rem;
+  font-size: 0.9rem;
   color: var(--c-slate);
 }
 

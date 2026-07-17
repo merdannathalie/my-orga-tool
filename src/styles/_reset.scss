@@ -21,11 +21,15 @@
     opacity: 1;
   }
 
-  input:focus,
   textarea:focus,
   select:focus {
     outline: 2px solid var(--c-focus);
     outline-offset: 1px;
+  }
+
+  ::selection {
+    background: rgba(228, 105, 63, 0.28);
+    color: inherit;
   }
 }
 

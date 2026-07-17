@@ -55,7 +55,7 @@ export const LearningListView = ({ items, setItems }: Props) => {
 
       <div className={styles.toolbar}>
         <div className={styles.searchBar}>
-          <Search size={14} color={SLATE} />
+          <Search size={16} color={SLATE} />
           <input
             value={filter}
             onChange={(e) => setFilter(e.target.value)}
@@ -64,7 +64,7 @@ export const LearningListView = ({ items, setItems }: Props) => {
           />
         </div>
         <button onClick={() => setShowForm((s) => !s)} className={styles.btnToggle}>
-          {showForm ? <X size={13} /> : <Plus size={13} />} {showForm ? "Abbrechen" : "Hinzufügen"}
+          {showForm ? <X size={14} /> : <Plus size={14} />} {showForm ? "Abbrechen" : "Hinzufügen"}
         </button>
       </div>
 

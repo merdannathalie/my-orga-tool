@@ -56,11 +56,14 @@ export const ProjectsView = ({ projects, setProjects, activeProject, setActivePr
     <div>
       <h1 className={cx(styles.h1, "aorg-h1")}>Projekte</h1>
 
+      <div className={styles.toolbar}>
+        <button onClick={addProject} className={styles.newProjectBtn}>
+          <Plus size={13} /> Neues Projekt
+        </button>
+      </div>
+
       <div className="aorg-notes-layout">
         <div className="aorg-notes-list">
-          <button onClick={addProject} className={styles.newProjectBtn}>
-            <Plus size={13} /> Neues Projekt
-          </button>
           <div className={styles.list}>
             {activeList.map((p) => {
               const active = current && p.id === current.id;
@@ -131,11 +134,11 @@ export const ProjectsView = ({ projects, setProjects, activeProject, setActivePr
               </div>
             ) : (
               <div className={styles.actions}>
-                <button onClick={() => completeProject(current.id)} className={styles.btnComplete}>
-                  Projekt abgeschlossen
-                </button>
                 <button onClick={() => setConfirmDeleteId(current.id)} className={styles.btnDelete}>
                   <Trash2 size={13} /> Endgültig löschen
+                </button>
+                <button onClick={() => completeProject(current.id)} className={styles.btnComplete}>
+                  Projekt abgeschlossen
                 </button>
               </div>
             )}

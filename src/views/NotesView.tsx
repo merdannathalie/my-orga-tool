@@ -107,7 +107,7 @@ export const NotesView = ({
 
       <div className={styles.toolbar}>
         <div className={styles.searchBar}>
-          <Search size={14} color={SLATE} />
+          <Search size={16} color={SLATE} />
           <input
             value={noteFilter}
             onChange={(e) => setNoteFilter(e.target.value)}

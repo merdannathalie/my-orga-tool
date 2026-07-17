@@ -1,12 +1,16 @@
 @use "../styles/mixins" as *;
 
 .card {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
   background: var(--c-card);
   border: 1px solid var(--c-border);
   border-radius: 7px;
-  padding: 9px 11px;
+  padding: 14px;
   cursor: grab;
   transition: opacity 0.1s ease;
+  user-select: none;
 }
 
 .cardDragging { opacity: 0.4; }
@@ -28,7 +32,7 @@
 }
 
 .title {
-  font-size: 0.81rem;
+  font-size: 0.9rem;
   font-weight: 500;
 }
 
@@ -43,7 +47,7 @@
 }
 
 .link {
-  font-size: 0.81rem;
+  font-size: 0.85rem;
   color: var(--c-accent);
   display: flex;
   align-items: center;
@@ -53,7 +57,7 @@
 }
 
 .note {
-  font-size: 0.69rem;
+  font-size: 0.8rem;
   color: var(--c-slate);
   margin-top: 5px;
   line-height: 1.4;

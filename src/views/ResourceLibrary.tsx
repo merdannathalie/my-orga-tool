@@ -46,7 +46,7 @@ export const ResourceLibrary = ({ resources, setResources }: Props) => {
 
       <div className={styles.toolbar}>
         <div className={styles.searchBar}>
-          <Search size={14} color={SLATE} />
+          <Search size={16} color={SLATE} />
           <input
             value={filter}
             onChange={(e) => setFilter(e.target.value)}
