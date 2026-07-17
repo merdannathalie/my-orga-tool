@@ -1,12 +1,11 @@
 import { useState } from "react";
 import { X, Pencil } from "lucide-react";
 import { Pill } from "./Pill";
-import { Checkbox } from "./Checkbox";
-import { SLATE, FAIL, FOCUS } from "../constants/colors";
-import { AUDIT_STATUSES } from "../constants/wcag";
-import { auditStatusColor } from "../utils/audit";
+import { SLATE, FOCUS } from "../constants/colors";
+import { AUDIT_STATUSES, SEVERITIES, SEVERITY_LABEL } from "../constants/wcag";
+import { auditStatusColor, severityColor, severityLabel } from "../utils/audit";
 import { cx } from "../utils/cx";
-import type { AuditItem, AuditStatus } from "../types";
+import type { AuditItem, AuditStatus, Severity } from "../types";
 import styles from "./AuditItemModal.module.scss";
 
 type Props = {
@@ -48,7 +47,9 @@ export const AuditItemModal = ({ item, onClose, onSave }: Props) => {
           <div>
             <div className={styles.statusRow}>
               <Pill color={auditStatusColor(item.status)}>{item.status}</Pill>
-              {item.severity === "kritisch" && <Pill color={FAIL}>kritisch</Pill>}
+              {item.severity && (
+                <Pill color={severityColor(item.severity)}>{severityLabel(item.severity)}</Pill>
+              )}
             </div>
             <div className={styles.label}>Notiz</div>
             <p className={cx(styles.noteText, item.note ? styles.noteTextFilled : styles.noteTextEmpty)}>
@@ -58,6 +59,12 @@ export const AuditItemModal = ({ item, onClose, onSave }: Props) => {
               <div>
                 <div className={styles.label}>Beispielcode</div>
                 <pre className={styles.codePre}>{item.codeExample}</pre>
+              </div>
+            )}
+            {item.recommendation && (
+              <div>
+                <div className={styles.label}>Empfehlung</div>
+                <p className={styles.recommendationText}>{item.recommendation}</p>
               </div>
             )}
             <button onClick={startEdit} className={styles.btnEdit}>
@@ -76,7 +83,22 @@ export const AuditItemModal = ({ item, onClose, onSave }: Props) => {
                   <option key={s} value={s}>{s}</option>
                 ))}
               </select>
-              {/* Task 2 setzt hier ein Severity-Dropdown ein */}
+              <select
+                value={draft.severity ?? ""}
+                onChange={(e) =>
+                  setDraft((d) => ({
+                    ...d,
+                    severity: (e.target.value || null) as Severity | null,
+                  }))
+                }
+                className={styles.select}
+                aria-label="Schweregrad"
+              >
+                <option value="">— Schweregrad —</option>
+                {SEVERITIES.map((s) => (
+                  <option key={s} value={s}>{SEVERITY_LABEL[s]}</option>
+                ))}
+              </select>
             </div>
             <div className={styles.label}>Notiz</div>
             <textarea
@@ -91,6 +113,13 @@ export const AuditItemModal = ({ item, onClose, onSave }: Props) => {
               onChange={(e) => setDraft((d) => ({ ...d, codeExample: e.target.value }))}
               placeholder="z. B. Vorher/Nachher-Snippet"
               className={styles.textareaCode}
+            />
+            <div className={styles.label}>Empfehlung</div>
+            <textarea
+              value={draft.recommendation}
+              onChange={(e) => setDraft((d) => ({ ...d, recommendation: e.target.value }))}
+              placeholder="Was der Kunde konkret tun sollte, um das Kriterium zu erfüllen"
+              className={styles.textareaRecommendation}
             />
             <div className={styles.editActions}>
               <button onClick={save} className={styles.btnSave}>Speichern</button>
