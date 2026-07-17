@@ -1,4 +1,4 @@
-import type { AuditStatus, Principle, WcagCriterion } from "../types";
+import type { AuditStatus, Principle, Severity, WcagCriterion } from "../types";
 
 // Vollständiges WCAG 2.2 Template — alle Erfolgskriterien der Stufen A und AA.
 export const WCAG_TEMPLATE: WcagCriterion[] = [
@@ -64,4 +64,19 @@ export const WCAG_TEMPLATE: WcagCriterion[] = [
 ];
 
 export const PRINCIPLES: Principle[] = ["Wahrnehmbar", "Bedienbar", "Verständlich", "Robust"];
-export const AUDIT_STATUSES: AuditStatus[] = ["wird geprüft", "nicht anwendbar", "nicht erfüllt", "erfüllt"];
+export const AUDIT_STATUSES: AuditStatus[] = [
+  "wird geprüft",
+  "erfüllt",
+  "teilweise erfüllt",
+  "nicht erfüllt",
+  "nicht anwendbar",
+];
+
+export const SEVERITIES: Severity[] = ["kritisch", "schwerwiegend", "moderat", "gering"];
+
+export const SEVERITY_LABEL: Record<Severity, string> = {
+  kritisch: "Kritisch",
+  schwerwiegend: "Schwerwiegend",
+  moderat: "Moderat",
+  gering: "Gering",
+};

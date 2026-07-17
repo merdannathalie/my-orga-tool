@@ -48,7 +48,7 @@ export const AuditItemModal = ({ item, onClose, onSave }: Props) => {
           <div>
             <div className={styles.statusRow}>
               <Pill color={auditStatusColor(item.status)}>{item.status}</Pill>
-              {item.critical && <Pill color={FAIL}>kritisch</Pill>}
+              {item.severity === "kritisch" && <Pill color={FAIL}>kritisch</Pill>}
             </div>
             <div className={styles.label}>Notiz</div>
             <p className={cx(styles.noteText, item.note ? styles.noteTextFilled : styles.noteTextEmpty)}>
@@ -76,14 +76,7 @@ export const AuditItemModal = ({ item, onClose, onSave }: Props) => {
                   <option key={s} value={s}>{s}</option>
                 ))}
               </select>
-              <label className={styles.criticalLabel}>
-                <Checkbox
-                  checked={draft.critical}
-                  onChange={() => setDraft((d) => ({ ...d, critical: !d.critical }))}
-                  ariaLabel="kritisch"
-                />
-                kritisch
-              </label>
+              {/* Task 2 setzt hier ein Severity-Dropdown ein */}
             </div>
             <div className={styles.label}>Notiz</div>
             <textarea

@@ -24,7 +24,7 @@ import {
   initialProjects, initialAudit, initialTasks, initialNotes,
   initialResources, initialLearningItems, initialMeetings,
 } from "./constants/initialData";
-import { makeAudit } from "./utils/audit";
+import { makeAudit, migrateAuditItem } from "./utils/audit";
 import { cx } from "./utils/cx";
 import type {
   AuditItem, LearningItem, Meeting, Note, Project, Resource, Task, Theme,
@@ -82,7 +82,7 @@ export const AccessOrg = ({ uid, onSignOut }: Props) => {
           loadAll<Note>(uid, "notes"),
           loadAll<Resource>(uid, "resources"),
           loadAll<LearningItem>(uid, "learning"),
-          loadAll<AuditItem>(uid, "audit"),
+          loadAll<unknown>(uid, "audit").then((raws) => raws.map(migrateAuditItem)),
           loadAll<Meeting>(uid, "meetings"),
           loadSettings(uid),
         ]);

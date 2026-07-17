@@ -13,14 +13,14 @@ export const initialAudit: AuditItem[] = makeAudit(1, {
   "1.1.1": { status: "erfüllt", note: "Alt-Texte für alle produktrelevanten Bilder vorhanden, Icons als dekorativ markiert." },
   "1.4.3": {
     status: "nicht erfüllt",
-    critical: true,
+    severity: "kritisch",
     note: "Fehlermeldungen (Rot #E24B4A auf Rosa #FCEBEB) liegen bei ca. 3.2:1, benötigt werden 4.5:1.",
     codeExample: ".form-error {\n  color: #7A1F1F; /* statt #E24B4A */\n  background: #FCEBEB;\n}",
   },
-  "2.4.7": { status: "nicht erfüllt", critical: true, note: "Fokus-Indikator wird von Sticky-Header im Checkout überdeckt." },
+  "2.4.7": { status: "nicht erfüllt", severity: "kritisch", note: "Fokus-Indikator wird von Sticky-Header im Checkout überdeckt." },
   "4.1.2": {
     status: "nicht erfüllt",
-    critical: true,
+    severity: "kritisch",
     note: "Custom-Dropdown im Warenkorb hat keine ARIA-Rolle, NVDA liest keinen Namen vor.",
     codeExample: '<div role="listbox" aria-label="Menge auswählen" tabindex="0">\n  ...\n</div>',
   },

@@ -4,7 +4,14 @@ export type Priority = "low" | "moderate" | "severe";
 
 export type KanbanCol = "todo" | "doing" | "done";
 
-export type AuditStatus = "wird geprüft" | "nicht anwendbar" | "nicht erfüllt" | "erfüllt";
+export type AuditStatus =
+  | "wird geprüft"
+  | "nicht anwendbar"
+  | "nicht erfüllt"
+  | "teilweise erfüllt"
+  | "erfüllt";
+
+export type Severity = "kritisch" | "schwerwiegend" | "moderat" | "gering";
 
 export type Principle = "Wahrnehmbar" | "Bedienbar" | "Verständlich" | "Robust";
 
@@ -43,12 +50,15 @@ export type AuditItem = {
   principle: Principle;
   guideline: string;
   status: AuditStatus;
-  critical: boolean;
+  severity: Severity | null;
   note: string;
   codeExample: string;
+  recommendation: string;
 };
 
-export type AuditOverride = Partial<Omit<AuditItem, "id" | "project" | "code" | "name" | "level" | "principle" | "guideline">>;
+export type AuditOverride = Partial<
+  Omit<AuditItem, "id" | "project" | "code" | "name" | "level" | "principle" | "guideline">
+>;
 
 export type Note = {
   id: number;

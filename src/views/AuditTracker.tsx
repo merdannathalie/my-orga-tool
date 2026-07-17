@@ -39,7 +39,7 @@ export const AuditTracker = ({
         const items = audit.filter((a) => a.project === p.id);
         const isOpen = expanded === p.id;
         const doneCount = items.filter((i) => i.status === "erfüllt").length;
-        const criticalOpen = items.filter((i) => i.critical && i.status !== "erfüllt").length;
+        const criticalOpen = items.filter((i) => i.severity === "kritisch" && i.status !== "erfüllt").length;
 
         return (
           <div key={p.id} className={styles.projectBlock}>
@@ -96,7 +96,7 @@ export const AuditTracker = ({
                                   <Pill color={FOCUS}>{a.code}</Pill>
                                   <span className={styles.itemName}>{a.name}</span>
                                   <span className={styles.itemLevel}>{a.level}</span>
-                                  {a.critical && a.status !== "erfüllt" && <Pill color={FAIL}>kritisch</Pill>}
+                                  {a.severity === "kritisch" && a.status !== "erfüllt" && <Pill color={FAIL}>kritisch</Pill>}
                                   <span
                                     className={styles.itemStatus}
                                     style={{ ["--item-status-color" as string]: auditStatusColor(a.status) } as CSSProperties}
