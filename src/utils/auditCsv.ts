@@ -1,7 +1,7 @@
 import { WCAG_TEMPLATE } from "../constants/wcag";
 import { slugify } from "./slug";
 import { severityLabel } from "./audit";
-import type { AuditItem, Project } from "../types";
+import type { AuditItem, AuditPage, Project } from "../types";
 
 export const AUDIT_CSV_COLUMNS = [
   "Nr.",
@@ -9,6 +9,8 @@ export const AUDIT_CSV_COLUMNS = [
   "Prinzip",
   "Konformitätsstufe",
   "Richtlinie",
+  "Seite",
+  "URL",
   "Bewertung",
   "Schweregrad",
   "Anmerkung",
@@ -26,12 +28,14 @@ const escapeCell = (val: string): string => {
   return val;
 };
 
-export const auditToCsvRow = (item: AuditItem): string[] => [
+export const auditToCsvRow = (item: AuditItem, page?: AuditPage): string[] => [
   item.code,
   item.name,
   item.principle,
   item.level,
   item.guideline,
+  page?.title ?? "",
+  page?.url ?? "",
   item.status,
   severityLabel(item.severity),
   item.note,
@@ -47,11 +51,11 @@ const templateIndex = (code: string): number => {
 const sortByTemplate = (items: AuditItem[]): AuditItem[] =>
   [...items].sort((a, b) => templateIndex(a.code) - templateIndex(b.code));
 
-export const auditToCsv = (items: AuditItem[]): string => {
+export const auditToCsv = (items: AuditItem[], page?: AuditPage): string => {
   const rows = [
     AUDIT_CSV_COLUMNS.map(escapeCell).join(DELIM),
     ...sortByTemplate(items).map((it) =>
-      auditToCsvRow(it).map(escapeCell).join(DELIM),
+      auditToCsvRow(it, page).map(escapeCell).join(DELIM),
     ),
   ];
   return CSV_BOM + rows.join(NEWLINE) + NEWLINE;
@@ -65,16 +69,19 @@ const todayIso = (): string => {
   return `${y}-${m}-${d}`;
 };
 
-export const csvFilename = (project: Project): string =>
-  `${slugify(project.name, "projekt")}-wcag-audit-${todayIso()}.csv`;
+export const csvFilename = (project: Project, page?: AuditPage): string => {
+  const projectSlug = slugify(project.name, "projekt");
+  const pageSlug = page ? `-${slugify(page.title, "seite")}` : "";
+  return `${projectSlug}${pageSlug}-wcag-audit-${todayIso()}.csv`;
+};
 
-export const downloadAuditCsv = (items: AuditItem[], project: Project): void => {
-  const csv = auditToCsv(items);
+export const downloadAuditCsv = (items: AuditItem[], project: Project, page?: AuditPage): void => {
+  const csv = auditToCsv(items, page);
   const blob = new Blob([csv], { type: "text/csv;charset=utf-8" });
   const url = URL.createObjectURL(blob);
   const a = document.createElement("a");
   a.href = url;
-  a.download = csvFilename(project);
+  a.download = csvFilename(project, page);
   document.body.appendChild(a);
   a.click();
   a.remove();

@@ -14,7 +14,7 @@
   border: none;
   cursor: pointer;
   padding: 6px 0;
-  font-size: 0.88rem;
+  font-size: 1rem;
   font-weight: 500;
   color: var(--c-ink);
   text-align: left;
@@ -22,7 +22,7 @@
 }
 
 .projectMeta {
-  font-size: 0.69rem;
+  font-size: 0.8rem;
   color: var(--c-slate);
   font-weight: 400;
 }
@@ -38,17 +38,148 @@
   max-width: 440px;
 }
 
-.btnStart {
+.pages {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.pageBlock {
+  border: 1px solid var(--c-border);
+  border-radius: 8px;
+  padding: 8px 10px;
+  background: var(--c-card);
+}
+
+.pageHeaderRow {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.pageHeader {
   display: flex;
   align-items: center;
   gap: 6px;
+  flex: 1;
+  min-width: 0;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 2px 0;
+  text-align: left;
+  font-family: inherit;
+  font-size: 0.82rem;
+  color: var(--c-ink);
+  flex-wrap: wrap;
+}
+
+.pageTitle {
+  font-weight: 500;
+  padding-right: 6px;
+}
+
+.pageUrl {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.8rem;
+  color: var(--c-slate);
+  text-decoration: none;
+  max-width: 260px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+
+  &:hover { text-decoration: underline; }
+}
+
+.pageMeta {
+  font-size: 0.8rem;
+  color: var(--c-slate);
+  margin-left: auto;
+}
+
+.pageActions {
+  display: flex;
+  gap: 4px;
+  flex-shrink: 0;
+}
+
+.iconBtn {
+  border: 1px solid var(--c-border);
+  background: transparent;
+  color: var(--c-slate);
+  border-radius: 6px;
+  padding: 4px 6px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: inherit;
+
+  &:hover {
+    background: var(--c-selected-bg);
+    color: var(--c-ink);
+  }
+  &:focus-visible {
+    outline: 2px solid var(--c-focus);
+    outline-offset: 1px;
+  }
+}
+
+.iconBtnDanger:hover {
+  color: var(--c-fail);
+}
+
+.pageForm {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  align-items: center;
+  padding: 4px 0;
+}
+
+.pageInput {
+  @include input-base;
+  flex: 1;
+  min-width: 160px;
+}
+
+.btnPrimary {
   @include btn-primary;
+}
+
+.btnGhost {
+  @include btn-ghost;
+}
+
+.btnAddPage {
+  align-self: flex-start;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  border: 1px dashed var(--c-border);
+  background: transparent;
+  color: var(--c-slate);
+  border-radius: 6px;
+  padding: 6px 10px;
+  cursor: pointer;
+  font-size: 0.78rem;
+  font-family: inherit;
+
+  &:hover {
+    background: var(--c-selected-bg);
+    color: var(--c-ink);
+  }
 }
 
 .principles {
   display: flex;
   flex-direction: column;
   gap: 10px;
+  margin-top: 8px;
 }
 
 .principleHeader {
@@ -117,19 +248,3 @@
   text-align: right;
 }
 
-.btnCsv {
-  display: inline-flex;
-  align-items: center;
-  gap: 5px;
-  margin-left: auto;
-  background: transparent;
-  border: 1px solid var(--c-border);
-  border-radius: 6px;
-  padding: 4px 9px;
-  font-size: 0.78rem;
-  color: var(--c-ink);
-  cursor: pointer;
-  user-select: none;
-}
-.btnCsv:hover { background: var(--c-selected-bg); }
-.btnCsv:focus-visible { outline: 2px solid var(--c-focus); outline-offset: 1px; }

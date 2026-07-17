@@ -7,6 +7,7 @@
 //   users/{uid}/resources/{id}   — pro Ressource ein Doc
 //   users/{uid}/learning/{id}    — pro Weiterbildungs-Eintrag ein Doc
 //   users/{uid}/audit/{id}       — pro Audit-Kriterium ein Doc
+//   users/{uid}/auditPages/{id}  — pro Audit-Seite (Kunden-URL) ein Doc
 //   users/{uid}/meetings/{id}    — pro Meeting ein Doc
 //   users/{uid}/settings/state   — Einzel-Doc mit gratitude/dayNotes/theme
 //
@@ -18,12 +19,12 @@ import {
 } from "firebase/firestore";
 import { db } from "../firebase";
 import type {
-  Project, Task, Note, Resource, LearningItem, AuditItem, Meeting, Theme,
+  Project, Task, Note, Resource, LearningItem, AuditItem, AuditPage, Meeting, Theme,
 } from "../types";
 
 export type CollectionName =
   | "projects" | "tasks" | "notes" | "resources"
-  | "learning" | "audit" | "meetings";
+  | "learning" | "audit" | "auditPages" | "meetings";
 
 type Ided = { id: string | number };
 
@@ -98,6 +99,7 @@ export type LegacyState = {
   resources?: Resource[];
   learningItems?: LearningItem[];
   audit?: AuditItem[];
+  auditPages?: AuditPage[];
   meetings?: Meeting[];
   gratitude?: string[];
   dayNotes?: string;

@@ -1,6 +1,6 @@
-import { makeAudit } from "../utils/audit";
+import { defaultPageId, makeAudit } from "../utils/audit";
 import type {
-  AuditItem, LearningItem, Meeting, Note, Project, Resource, Task,
+  AuditItem, AuditPage, LearningItem, Meeting, Note, Project, Resource, Task,
 } from "../types";
 
 export const initialProjects: Project[] = [
@@ -9,7 +9,11 @@ export const initialProjects: Project[] = [
   { id: 3, name: "Ministerium für Digitales", description: "EN 301549-Mapping für das neue Bürgerportal, zusätzlich zu WCAG 2.2 AA.", deadline: "12.08.2026", completed: false },
 ];
 
-export const initialAudit: AuditItem[] = makeAudit(1, {
+export const initialAuditPages: AuditPage[] = [
+  { id: defaultPageId(1), project: 1, title: "Startseite", url: "" },
+];
+
+export const initialAudit: AuditItem[] = makeAudit(defaultPageId(1), 1, {
   "1.1.1": { status: "erfüllt", note: "Alt-Texte für alle produktrelevanten Bilder vorhanden, Icons als dekorativ markiert." },
   "1.4.3": {
     status: "nicht erfüllt",

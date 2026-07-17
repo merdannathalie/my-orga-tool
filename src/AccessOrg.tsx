@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { LogOut, Loader2 } from "lucide-react";
+import { LogOut, Loader2, PanelLeft } from "lucide-react";
 
 import {
   loadAll, syncCollection, loadSettings, saveSettings, loadLegacy,
@@ -21,13 +21,13 @@ import { LearningListView } from "./views/LearningListView";
 import { NAV } from "./constants/nav";
 import type { TabKey } from "./constants/nav";
 import {
-  initialProjects, initialAudit, initialTasks, initialNotes,
+  initialProjects, initialAudit, initialAuditPages, initialTasks, initialNotes,
   initialResources, initialLearningItems, initialMeetings,
 } from "./constants/initialData";
-import { makeAudit, migrateAuditItem } from "./utils/audit";
+import { defaultPageId, ensureDefaultPages, makeAudit, migrateAuditItem } from "./utils/audit";
 import { cx } from "./utils/cx";
 import type {
-  AuditItem, LearningItem, Meeting, Note, Project, Resource, Task, Theme,
+  AuditItem, AuditPage, LearningItem, Meeting, Note, Project, Resource, Task, Theme,
 } from "./types";
 import styles from "./AccessOrg.module.scss";
 
@@ -41,6 +41,7 @@ export const AccessOrg = ({ uid, onSignOut }: Props) => {
   const [projects, setProjects] = useState<Project[]>(initialProjects);
   const [activeProject, setActiveProject] = useState<number | null>(initialProjects[0]?.id ?? null);
   const [audit, setAudit] = useState<AuditItem[]>(initialAudit);
+  const [auditPages, setAuditPages] = useState<AuditPage[]>(initialAuditPages);
   const [tasks, setTasks] = useState<Task[]>(initialTasks);
   const [expanded, setExpanded] = useState<number | null>(1);
   const [notes, setNotes] = useState<Note[]>(initialNotes);
@@ -53,8 +54,16 @@ export const AccessOrg = ({ uid, onSignOut }: Props) => {
   const [meetings, setMeetings] = useState<Meeting[]>(initialMeetings);
   const [greetingSeed] = useState<number>(() => Math.floor(Math.random() * 1000));
   const [theme, setTheme] = useState<Theme>("dark");
+  const [sidebarCollapsed, setSidebarCollapsed] = useState<boolean>(() => {
+    if (typeof window === "undefined") return false;
+    return window.localStorage.getItem("aorg.sidebarCollapsed") === "1";
+  });
 
   const [hydrated, setHydrated] = useState(false);
+
+  useEffect(() => {
+    window.localStorage.setItem("aorg.sidebarCollapsed", sidebarCollapsed ? "1" : "0");
+  }, [sidebarCollapsed]);
 
   // Letzter bekannter Firestore-Stand pro Collection. Wird beim Load initialisiert
   // und pro Hook-Aufruf nach erfolgreichem Diff-Sync fortgeschrieben. Der Diff
@@ -67,6 +76,7 @@ export const AccessOrg = ({ uid, onSignOut }: Props) => {
   const resourcesSynced = useRef<Resource[]>([]);
   const learningSynced = useRef<LearningItem[]>([]);
   const auditSynced = useRef<AuditItem[]>([]);
+  const auditPagesSynced = useRef<AuditPage[]>([]);
   const meetingsSynced = useRef<Meeting[]>([]);
 
   useEffect(() => {
@@ -75,7 +85,7 @@ export const AccessOrg = ({ uid, onSignOut }: Props) => {
       try {
         // 1) Parallel aus allen Collections laden
         const [
-          projectsDb, tasksDb, notesDb, resourcesDb, learningDb, auditDb, meetingsDb, settingsDb,
+          projectsDb, tasksDb, notesDb, resourcesDb, learningDb, auditDb, auditPagesDb, meetingsDb, settingsDb,
         ] = await Promise.all([
           loadAll<Project>(uid, "projects"),
           loadAll<Task>(uid, "tasks"),
@@ -83,27 +93,39 @@ export const AccessOrg = ({ uid, onSignOut }: Props) => {
           loadAll<Resource>(uid, "resources"),
           loadAll<LearningItem>(uid, "learning"),
           loadAll<unknown>(uid, "audit").then((raws) => raws.map(migrateAuditItem)),
+          loadAll<AuditPage>(uid, "auditPages"),
           loadAll<Meeting>(uid, "meetings"),
           loadSettings(uid),
         ]);
+
+        // Für alle referenzierten Pages, für die es (noch) kein AuditPage-Doc gibt
+        // (Legacy-Migration oder Inkonsistenz), Default-Page "Startseite" erzeugen.
+        const ensuredAuditPages = ensureDefaultPages(auditDb, auditPagesDb);
 
         // 2) Falls alle Collections + Settings leer sind, aber ein Legacy-Doc
         //    existiert (users/{uid}/app/state), einmalig hoch-migrieren.
         const allEmpty =
           !projectsDb.length && !tasksDb.length && !notesDb.length &&
           !resourcesDb.length && !learningDb.length && !auditDb.length &&
-          !meetingsDb.length && !settingsDb;
+          !auditPagesDb.length && !meetingsDb.length && !settingsDb;
 
         if (allEmpty) {
           const legacy = await loadLegacy(uid);
           if (!cancelled && legacy) {
+            const legacyAudit = (legacy.audit ?? []).map((a) => ({
+              ...a,
+              page: a.page || defaultPageId(a.project),
+            }));
+            const legacyPages = ensureDefaultPages(legacyAudit, legacy.auditPages ?? []);
+
             await Promise.all([
               syncCollection(uid, "projects", legacy.projects ?? [], []),
               syncCollection(uid, "tasks", legacy.tasks ?? [], []),
               syncCollection(uid, "notes", legacy.notes ?? [], []),
               syncCollection(uid, "resources", legacy.resources ?? [], []),
               syncCollection(uid, "learning", legacy.learningItems ?? [], []),
-              syncCollection(uid, "audit", legacy.audit ?? [], []),
+              syncCollection(uid, "audit", legacyAudit, []),
+              syncCollection(uid, "auditPages", legacyPages, []),
               syncCollection(uid, "meetings", legacy.meetings ?? [], []),
               saveSettings(uid, {
                 gratitude: legacy.gratitude ?? ["", "", ""],
@@ -120,7 +142,8 @@ export const AccessOrg = ({ uid, onSignOut }: Props) => {
             if (legacy.notes) setNotes(legacy.notes);
             if (legacy.resources) setResources(legacy.resources);
             if (legacy.learningItems) setLearningItems(legacy.learningItems);
-            if (legacy.audit) setAudit(legacy.audit);
+            if (legacyAudit.length) setAudit(legacyAudit);
+            if (legacyPages.length) setAuditPages(legacyPages);
             if (legacy.meetings) setMeetings(legacy.meetings);
             if (legacy.gratitude) setGratitude(legacy.gratitude);
             if (typeof legacy.dayNotes === "string") setDayNotes(legacy.dayNotes);
@@ -131,7 +154,8 @@ export const AccessOrg = ({ uid, onSignOut }: Props) => {
             notesSynced.current = legacy.notes ?? [];
             resourcesSynced.current = legacy.resources ?? [];
             learningSynced.current = legacy.learningItems ?? [];
-            auditSynced.current = legacy.audit ?? [];
+            auditSynced.current = legacyAudit;
+            auditPagesSynced.current = legacyPages;
             meetingsSynced.current = legacy.meetings ?? [];
           }
         } else if (!cancelled) {
@@ -142,6 +166,7 @@ export const AccessOrg = ({ uid, onSignOut }: Props) => {
           if (resourcesDb.length) setResources(resourcesDb);
           if (learningDb.length) setLearningItems(learningDb);
           if (auditDb.length) setAudit(auditDb);
+          if (ensuredAuditPages.length) setAuditPages(ensuredAuditPages);
           if (meetingsDb.length) setMeetings(meetingsDb);
           if (settingsDb?.gratitude) setGratitude(settingsDb.gratitude);
           if (typeof settingsDb?.dayNotes === "string") setDayNotes(settingsDb.dayNotes);
@@ -153,6 +178,8 @@ export const AccessOrg = ({ uid, onSignOut }: Props) => {
           resourcesSynced.current = resourcesDb;
           learningSynced.current = learningDb;
           auditSynced.current = auditDb;
+          // Ref auf DB-Stand — neu erzeugte Default-Pages werden vom Sync-Hook geschrieben.
+          auditPagesSynced.current = auditPagesDb;
           meetingsSynced.current = meetingsDb;
         }
       } catch (err) {
@@ -173,14 +200,27 @@ export const AccessOrg = ({ uid, onSignOut }: Props) => {
   useDebouncedCollectionSync(uid, hydrated, "resources", resources, resourcesSynced);
   useDebouncedCollectionSync(uid, hydrated, "learning", learningItems, learningSynced);
   useDebouncedCollectionSync(uid, hydrated, "audit", audit, auditSynced);
+  useDebouncedCollectionSync(uid, hydrated, "auditPages", auditPages, auditPagesSynced);
   useDebouncedCollectionSync(uid, hydrated, "meetings", meetings, meetingsSynced);
   useDebouncedSettingsSync(uid, hydrated, gratitude, dayNotes, theme);
 
   const toggleTask = (id: number) =>
     setTasks((t) => t.map((x) => (x.id === id ? { ...x, col: x.col === "done" ? "todo" : "done" } : x)));
 
-  const startAudit = (projectId: number) =>
-    setAudit((a) => (a.some((x) => x.project === projectId) ? a : [...a, ...makeAudit(projectId)]));
+  const addAuditPage = (projectId: number, title: string, url: string) => {
+    const pageId = `p-${crypto.randomUUID()}`;
+    const page: AuditPage = { id: pageId, project: projectId, title, url };
+    setAuditPages((ps) => [...ps, page]);
+    setAudit((a) => [...a, ...makeAudit(pageId, projectId)]);
+  };
+
+  const updateAuditPage = (pageId: string, patch: { title?: string; url?: string }) =>
+    setAuditPages((ps) => ps.map((p) => (p.id === pageId ? { ...p, ...patch } : p)));
+
+  const deleteAuditPage = (pageId: string) => {
+    setAuditPages((ps) => ps.filter((p) => p.id !== pageId));
+    setAudit((a) => a.filter((x) => x.page !== pageId));
+  };
 
   const updateAuditItem = (updated: AuditItem) =>
     setAudit((a) => a.map((x) => (x.id === updated.id ? updated : x)));
@@ -206,7 +246,20 @@ export const AccessOrg = ({ uid, onSignOut }: Props) => {
         onSignOut={onSignOut}
       />
 
-      <div className={cx("aorg-sidebar", styles.sidebar)}>
+      <div className={cx("aorg-sidebar", styles.sidebar, sidebarCollapsed && styles.sidebarCollapsed)}>
+        <div className={styles.sidebarHeader}>
+          <button
+            type="button"
+            onClick={() => setSidebarCollapsed((c) => !c)}
+            aria-label={sidebarCollapsed ? "Sidebar einklappen aufheben" : "Sidebar einklappen"}
+            aria-expanded={!sidebarCollapsed}
+            title={sidebarCollapsed ? "Sidebar ausklappen" : "Sidebar einklappen"}
+            className={styles.collapseBtn}
+          >
+            <PanelLeft size={16} />
+          </button>
+        </div>
+
         <nav className={cx("aorg-nav-list", styles.nav)}>
           {NAV.map(({ key, label, icon: Icon }) => {
             const active = tab === key;
@@ -215,9 +268,11 @@ export const AccessOrg = ({ uid, onSignOut }: Props) => {
                 key={key}
                 onClick={() => setTab(key)}
                 className={cx("aorg-nav-btn", styles.navBtn, active && styles.navBtnActive)}
+                aria-label={sidebarCollapsed ? label : undefined}
+                title={sidebarCollapsed ? label : undefined}
               >
                 <Icon size={16} strokeWidth={1.75} style={{ flexShrink: 0 }} />
-                <span>{label}</span>
+                <span className={styles.navLabel}>{label}</span>
               </button>
             );
           })}
@@ -255,8 +310,11 @@ export const AccessOrg = ({ uid, onSignOut }: Props) => {
         {tab === "audit" && (
           <AuditTracker
             audit={audit}
+            auditPages={auditPages}
             projects={projects}
-            onStartAudit={startAudit}
+            onAddPage={addAuditPage}
+            onUpdatePage={updateAuditPage}
+            onDeletePage={deleteAuditPage}
             onUpdateItem={updateAuditItem}
             expanded={expanded}
             setExpanded={setExpanded}

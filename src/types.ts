@@ -44,6 +44,7 @@ export type Task = {
 export type AuditItem = {
   id: string;
   project: number;
+  page: string;
   code: string;
   name: string;
   level: "A" | "AA";
@@ -56,8 +57,15 @@ export type AuditItem = {
   recommendation: string;
 };
 
+export type AuditPage = {
+  id: string;
+  project: number;
+  title: string;
+  url: string;
+};
+
 export type AuditOverride = Partial<
-  Omit<AuditItem, "id" | "project" | "code" | "name" | "level" | "principle" | "guideline">
+  Omit<AuditItem, "id" | "project" | "page" | "code" | "name" | "level" | "principle" | "guideline">
 >;
 
 export type Note = {
