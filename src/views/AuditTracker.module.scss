@@ -78,13 +78,14 @@
 .pageTitle {
   font-weight: 500;
   padding-right: 6px;
+  font-size: 0.9rem;
 }
 
 .pageUrl {
   display: inline-flex;
   align-items: center;
   gap: 4px;
-  font-size: 0.8rem;
+  font-size: 0.85rem;
   color: var(--c-slate);
   text-decoration: none;
   max-width: 260px;
@@ -156,23 +157,8 @@
 }
 
 .btnAddPage {
-  align-self: flex-start;
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  border: 1px dashed var(--c-border);
-  background: transparent;
-  color: var(--c-slate);
-  border-radius: 6px;
-  padding: 6px 10px;
-  cursor: pointer;
-  font-size: 0.78rem;
-  font-family: inherit;
-
-  &:hover {
-    background: var(--c-selected-bg);
-    color: var(--c-ink);
-  }
+ @include btn-add;
+ width: fit-content;
 }
 
 .principles {

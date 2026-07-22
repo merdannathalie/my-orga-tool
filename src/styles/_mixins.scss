@@ -74,11 +74,12 @@
   display: flex;
   align-items: center;
   gap: 6px;
-  border: 1px dashed var(--c-accent);
+  border: 1.5px dashed var(--c-accent);
   background: transparent;
   border-radius: 7px;
   padding: 7px 12px;
   font-size: 0.78rem;
+  font-weight: 500;
   color: var(--c-accent);
   cursor: pointer;
   white-space: nowrap;
@@ -95,7 +96,7 @@
   background: transparent;
   color: var(--c-slate);
   border-radius: 6px;
-  padding: 7px 14px;
+  padding: 7px 10px;
   font-size: 0.78rem;
   cursor: pointer;
   font-family: inherit;

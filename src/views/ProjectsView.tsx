@@ -135,7 +135,7 @@ export const ProjectsView = ({ projects, setProjects, activeProject, setActivePr
             ) : (
               <div className={styles.actions}>
                 <button onClick={() => setConfirmDeleteId(current.id)} className={styles.btnDelete}>
-                  <Trash2 size={13} /> Endgültig löschen
+                  <Trash2 size={16} />
                 </button>
                 <button onClick={() => completeProject(current.id)} className={styles.btnComplete}>
                   Projekt abgeschlossen

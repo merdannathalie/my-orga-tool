@@ -5,26 +5,26 @@
 // Butter yellow #FFF0AD (soft surface).
 
 .aorg-shell[data-theme="dark"] {
-  --c-ink: #F1ECE6;
-  --c-card-title: #FFFFFF;
-  --c-paper: #1E1C29;
-  --c-slate: #C4BEC1;
+  --c-ink: #F3E9B8;
+  --c-card-title: #F3E9B8;
+  --c-paper: #1E1A2E;
+  --c-slate: #A79CDD;
   --c-pass: #3FCB8B;
-  --c-fail: #FF6B5D;
-  --c-amber: #FFF0AD;
-  --c-focus: #9C93D2;
-  --c-accent: #E4693F;
-  --c-butter: #FFF0AD;
-  --c-indigo: #6C63A2;
-  --c-card: #2A2838;
-  --c-border: #48454A;
-  --c-on-accent: #FFFFFF;
-  --c-lane-bg: #2A2838;
-  --c-selected-bg: rgba(156, 147, 210, 0.20);
-  --c-note-bg: #2A2838;
-  --c-code-bg: #17161A;
-  --c-code-text: #E7DFEA;
-  --c-input-bg: #23212E;
+  --c-fail: #F0855F;
+  --c-amber: #F3E9B8;
+  --c-focus: #A79CDD;
+  --c-accent: #F0855F;
+  --c-butter: #F3E9B8;
+  --c-indigo: #A79CDD;
+  --c-card: #2A2440;
+  --c-border: #8A7FC0;
+  --c-on-accent: #1E1A2E;
+  --c-lane-bg: #2A2440;
+  --c-selected-bg: rgba(167, 156, 221, 0.22);
+  --c-note-bg: #2A2440;
+  --c-code-bg: #17142A;
+  --c-code-text: #F3E9B8;
+  --c-input-bg: #23203A;
   --c-color-scheme: dark;
 }
 
@@ -41,14 +41,14 @@
   --c-butter: #FFF0AD;
   --c-indigo: #6C63A2;
   --c-card: #FFFFFF;
-  --c-border: #E4DFCE;
+  --c-border: #e5dcbe;
   --c-on-accent: #FFFFFF;
-  --c-lane-bg: #f1eee1;
+  --c-lane-bg: #f7f5ea;
   --c-selected-bg: rgba(108, 99, 162, 0.14);
   --c-note-bg: #F3EEDD;
   --c-code-bg: #241F26;
   --c-code-text: #F1ECE6;
-  --c-input-bg: #f1eee1;
+  --c-input-bg: #ffffff;
   --c-color-scheme: light;
   --c-subline: #79777a;
 }

@@ -270,7 +270,7 @@ export const NotesView = ({
                   onClick={() => setConfirmDeleteId(current.id)}
                   className={styles.btnDelete}
                 >
-                  <Trash2 size={13} /> Notiz löschen
+                  <Trash2 size={16} />
                 </button>
               )}
             </div>
